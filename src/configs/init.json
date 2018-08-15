@@ -1,0 +1,12 @@
+ {
+    "base"     : {
+        "sub_folder" : ""
+    },
+    "database" : {
+        "host" : "localhost",
+        "user" : "root",
+        "password" : "",
+        "table" : "",
+        "columns" : []
+    }
+}

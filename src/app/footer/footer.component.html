@@ -1,0 +1,22 @@
+<div class="left">
+  <div class="search-box input-group" data-bind="visible: config().search.enabled">
+    <span class="input-group-addon clickable" data-bind="event: {click: searchModel.seekItems}">
+      <span class="icon search-icon"></span>
+    </span>
+    <input class="input-group-input" type="text" data-bind="value: searchModel.value, event: {keyup: searchModel.inputKeyUp}">
+    <span class="input-group-addon clickable" data-bind="event: {click: searchModel.reset}">
+      <span class="icon reset-icon"></span>
+    </span>
+  </div>
+</div>
+
+<div class="right">
+  <div id="folder-info">
+    <span data-bind="text: itemsModel.objectsNumber() + ' ' + lg.items">2 items</span> -
+    <span data-bind="text: lg.size + ': ' + itemsModel.objectsSize()">Size: 149.49 Kb</span>
+  </div>
+  <div id="summary" data-bind="click: summaryModel.doSummarize"></div>
+  <a href="https://github.com/servocoder/RichFilemanager" target="_blank" id="link-to-project" data-bind="attr: {href: config().url, title: lg.support_fm + ' [' + lg.version + ' : ' + config().version + ']'}"
+    title="Filemanager is a free software, please support ! [version : 2.7.6]"></a>
+</div>
+<div style="clear: both"></div>
