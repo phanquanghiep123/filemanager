@@ -1,8 +1,9 @@
  {
    "base": {
      "sub_folder": "",
-     "get_data": "http://localhost:4200/configs/get_data.json",
-     "get_file": "http://localhost:4200/configs/file.json"
+     "get_data": "http://localhost/filemanager?action=init",
+     "get_trees": "http://localhost/filemanager?action=trees",
+     "get_file": "http://localhost/filemanager?action=file"
    },
    "database": {
      "is_demo": true,
@@ -27,7 +28,12 @@
      "key": "id",
      "url": "thumb"
    },
-   "ext": ["jpg", "png", "jpeg", "gif", "mp3", "mp4", "doc", "pdf", "txt", "html", "css", "js"],
+   "ext": {
+     "image": ["jpg", "png", "jpeg", "gif"],
+     "audio": ["mp3", "mp4"],
+     "video": ["ovg", "ovv"],
+     "file": ["doc", "pdf", "txt", "html", "css", "js"]
+   },
    "icon": {
      "photo": {
        "is_image": false,

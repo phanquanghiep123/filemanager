@@ -4,8 +4,11 @@ export class Medias {
     icon: string = ""
     path: string = ""
     thumb: string = ""
-    type : string = ""
-    ext  : string = ""
-    size : string = ""
-    parent : number = 0
+    type: string = ""
+    extension: string = ""
+    size: string = ""
+    parent: number = 0
+    status : boolean = true
+    created_at : Date = null
+    updated_at : Date = null
 }

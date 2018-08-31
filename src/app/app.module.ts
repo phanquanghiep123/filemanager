@@ -11,7 +11,8 @@ import { MainComponent } from './main/main.component';
 import { SidaberComponent } from './sidaber/sidaber.component';
 import { ContentComponent } from './content/content.component';
 import { UploadsComponent } from './uploads/uploads.component';
-import { StructHTML } from './struct-html';
+import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { StructHTML } from './struct-html';
     SidaberComponent,
     ContentComponent,
     UploadsComponent,
-    StructHTML
+    SafeHtmlPipe,
+
   ],
   imports: [
     BrowserModule,
@@ -30,7 +32,7 @@ import { StructHTML } from './struct-html';
     AppRoutingModule
     
   ],
-  providers: [Config,HttpClient,SidaberComponent ,ContentComponent,StructHTML],
+  providers: [Config,HttpClient,SidaberComponent ,ContentComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
