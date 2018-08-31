@@ -8,13 +8,21 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { MainComponent } from './main/main.component';
+import { SidaberComponent } from './sidaber/sidaber.component';
+import { ContentComponent } from './content/content.component';
+import { UploadsComponent } from './uploads/uploads.component';
+import { StructHTML } from './struct-html';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    MainComponent
+    MainComponent,
+    SidaberComponent,
+    ContentComponent,
+    UploadsComponent,
+    StructHTML
   ],
   imports: [
     BrowserModule,
@@ -22,7 +30,7 @@ import { MainComponent } from './main/main.component';
     AppRoutingModule
     
   ],
-  providers: [Config,HttpClient],
+  providers: [Config,HttpClient,SidaberComponent ,ContentComponent,StructHTML],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,12 +1,37 @@
  {
-    "base"     : {
-        "sub_folder" : ""
-    },
-    "database" : {
-        "host" : "localhost",
-        "user" : "root",
-        "password" : "",
-        "table" : "",
-        "columns" : []
-    }
-}
+   "base": {
+     "sub_folder": "",
+     "get_data": "http://localhost:4200/configs/get_data.json",
+     "get_file": "http://localhost:4200/configs/file.json"
+   },
+   "database": {
+     "is_demo": true,
+     "host": "http://localhost:4200/",
+     "user": "root",
+     "password": "",
+     "table": "",
+     "columns": []
+   },
+   "media": {
+     "columns": {
+       "id": 0,
+       "name": "",
+       "icon": "",
+       "path": "",
+       "thumb": "",
+       "type": "",
+       "ext": "",
+       "size": "",
+       "parent": 0
+     },
+     "key": "id",
+     "url": "thumb"
+   },
+   "ext": ["jpg", "png", "jpeg", "gif", "mp3", "mp4", "doc", "pdf", "txt", "html", "css", "js"],
+   "icon": {
+     "photo": {
+       "is_image": false,
+       "icon": "mdi mdi-file-image"
+     }
+   }
+ }

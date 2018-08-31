@@ -6,10 +6,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
-  constructor() { }
-
+  actions = [];
+  constructor() { 
+    this.actions = [
+      {name : "back folder","icon" : "mdi-subdirectory-arrow-left"},
+      {name : "next folder","icon" : "mdi-subdirectory-arrow-right"},
+      {name : "new folder","icon" : "mdi-folder-plus"},
+      {name : "new file","icon" : "mdi-file-plus"},
+      {name : "copy file","icon" : "mdi-content-copy"},
+      {name : "cut file","icon" : "mdi-content-cut"},
+      {name : "delete file","icon" : "mdi-delete"},
+    ]
+  }
   ngOnInit() {
   }
 
+  Actions_FNC ($action){
+  }
 }

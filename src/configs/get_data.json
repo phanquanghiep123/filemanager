@@ -1,0 +1,110 @@
+[
+  {
+    "id": 2,
+    "text": "Folder",
+    "icon": "mdi mdi-folder",
+    "parent" : 0
+  },
+  {
+    "id": 3,
+    "text": "Photo",
+    "icon": "mdi mdi-file-image",
+    "parent" : 0
+  },
+  {
+    "id": 4,
+    "text": "Xml (text)",
+    "icon": "mdi mdi-file-xml",
+    "parent" : 0
+  },
+  {
+    "id": 5,
+    "text": "Pdf",
+    "icon": "mdi mdi-file-pdf",
+    "parent" : 0
+  },
+  {
+    "id": 6,
+    "text": "Excel",
+    "icon": "mdi mdi-file-excel",
+    "parent" : 0
+  },
+  {
+    "id": 7,
+    "text": "Word",
+    "icon": "mdi mdi-file-word",
+    "parent" : 0
+  },
+  {
+    "id": 9,
+    "text": "Video",
+    "icon": "mdi mdi-file-video",
+    "parent" : 0
+  },
+  {
+    "id": 10,
+    "text": "Audio",
+    "icon": "mdi mdi-file-music",
+    "parent" : 0
+  },
+  {
+    "id": 11,
+    "text": "File",
+    "icon": "mdi mdi-file",
+    "parent" : 0
+  },
+  {
+    "id": 12,
+    "text": "Folder",
+    "icon": "mdi mdi-folder",
+    "parent" : 2
+  },
+  {
+    "id": 13,
+    "text": "Photo",
+    "icon": "mdi mdi-file-image",
+    "parent" : 2
+  },
+  {
+    "id": 14,
+    "text": "Xml (text)",
+    "icon": "mdi mdi-file-xml",
+    "parent" : 2
+  },
+  {
+    "id": 15,
+    "text": "Pdf",
+    "icon": "mdi mdi-file-pdf",
+    "parent" : 2
+  },
+  {
+    "id": 16,
+    "text": "Excel",
+    "icon": "mdi mdi-file-excel",
+    "parent" : 2
+  },
+  {
+    "id": 17,
+    "text": "Word",
+    "icon": "mdi mdi-file-word",
+    "parent" : 2
+  },
+  {
+    "id": 18,
+    "text": "Video",
+    "icon": "mdi mdi-file-video",
+    "parent" : 2
+  },
+  {
+    "id": 19,
+    "text": "Audio",
+    "icon": "mdi mdi-file-music",
+    "parent" : 2
+  },
+  {
+    "id": 20,
+    "text": "File",
+    "icon": "mdi mdi-file",
+    "parent" : 2
+  }
+]

@@ -1,0 +1,18 @@
+.left{
+    float: left;
+}
+.right{
+    float: right;
+}
+body .container{
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+}
+.mdi {
+    font-size: 20px;
+    color: #000;
+}
+.inline-block{
+    display: inline-block;
+}
