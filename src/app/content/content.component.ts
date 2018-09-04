@@ -1,4 +1,5 @@
-import { Component, OnInit ,Injectable} from '@angular/core';
+import { Component, OnInit ,Injectable,Input,EventEmitter,Output} from '@angular/core';
+import {Medias} from '../models/medias';
 @Injectable()
 @Component({
   selector: 'app-content',
@@ -6,11 +7,12 @@ import { Component, OnInit ,Injectable} from '@angular/core';
   styleUrls: ['./content.component.css']
 })
 export class ContentComponent implements OnInit {
-  LisTFile = [];
+  @Input() LisTFile : any;
   constructor() {
-
+   // console.log(this.LisTFile);
   }
   ngOnInit() {
+    console.log(this.LisTFile);
 
   }
 

@@ -1,56 +1,63 @@
-import { Component, OnInit, ElementRef, Renderer2, ViewChild } from '@angular/core';
-import { SafeHtml } from '@angular/platform-browser';
-import { Config } from "../models/config";
+import { Component, OnInit, ElementRef, Renderer2, ViewChild ,Input,Output,EventEmitter} from '@angular/core';
 import { TreesService } from '../services/trees.service';
 import { Service } from '../models/service';
 import { Trees } from '../models/trees';
+import { AppComponent } from '../app.component';
+declare var $: any;
 @Component({
   selector: 'app-sidaber',
   templateUrl: './sidaber.component.html',
   styleUrls: ['./sidaber.component.css']
 })
-
 export class SidaberComponent implements OnInit {
   jsTree: any;
-  BindHtml: SafeHtml;
-  trees: Trees;
+  BindHtml: string;
+  trees: [Trees];
   config: any;
   Service: Service;
+  interval: any;
+  @Output() onOpen: EventEmitter<any> = new EventEmitter();
   @ViewChild('viewTree') viewTree: ElementRef;
+  
   constructor(
-    private Config: Config,
-    private Rd: Renderer2,
-    private TreesService: TreesService
+    private TreesService: TreesService,
+    private app: AppComponent
   ) {
-
   }
   ngOnInit() {
-    setTimeout(() => {
-      this.config = this.Config.getConfig();
-      this.TreesService.gets(this.config.BASE['get_trees']).subscribe(data => {
-        this.Service = data;
-        if (this.Service.status) {
-          console.log(this.Service);
-        }
-      });
-    })
+    this.interval = setInterval(() => {
+      if (this.app.config != undefined) {
+        this.TreesService.gets(this.app.config.BASE['get_trees']).subscribe(data => {
+          this.Service = data;
+          if (this.Service.status) {
+            this.trees = this.Service.response;
+            this.Create_Tree(this.trees, 0);
+            this.BindHtml = this.UL;
+          }
+        });
+        clearInterval(this.interval);
+      }
+    }, 10);
+    this.BindEvent();
+  }
+  private UL: string = "";
+  private Create_Tree($datas: [Trees], $pid = 0) {
+    var stringClass = $pid == 0 ? 'ul-root' : 'ul-node';
+    this.UL += '<ul class="' + stringClass + '">';
+    $datas.forEach((element, key) => {
+      if (element.pid == $pid) {
+        $datas.slice(key, 1);
+        this.UL += `<li class="li-node ` + element.extension + `"><i class="icon-node"></i> <a class="a-node" data-id="` + element.id + `" href="javascript:;">` + element.name + `</a>`;
+        this.Create_Tree($datas, element.id);
+        this.UL += '</li>';
+      }
+    });
+    this.UL += '</ul>';
+  }
 
-  }
-  private CreateItem() {
-    var a = this.Rd.createElement('a');
-    const text = this.Rd.createText('Click here to add li');
-    var li = this.Rd.createElement('li');
-    var ul = this.Rd.createElement('ul');
-    var div = this.Rd.createElement('div');
-    this.Rd.listen(a, "click", this.BindEvent);
-    this.Rd.appendChild(a, text);
-    this.Rd.appendChild(li, a);
-    this.Rd.appendChild(ul, li);
-    this.Rd.appendChild(div, ul);
-    this.Rd.appendChild(this.viewTree.nativeElement, div);
-    console.log(this.viewTree);
-  }
   BindEvent() {
-    alert("dfgdgdf");
+    $(document).on("click",".li-node .a-node",$event =>{
+      this.onOpen.emit(["dfgfdg","dfgfd","dfghdgf"]);
+    });
   }
 }

@@ -1,9 +1,9 @@
  {
    "base": {
      "sub_folder": "",
-     "get_data": "http://localhost/filemanager?action=init",
-     "get_trees": "http://localhost/filemanager?action=trees",
-     "get_file": "http://localhost/filemanager?action=file"
+     "get_data": "http://filemanager.com?action=init",
+     "get_trees": "http://filemanager.com?action=trees",
+     "get_file": "http://filemanager.com?action=file"
    },
    "database": {
      "is_demo": true,

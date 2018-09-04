@@ -8,9 +8,7 @@ import { } from 'rxjs';
   providedIn: 'root'
 })
 export class TreesService {
-  httpOptions = {};
   constructor(private http: HttpClient) {
-   
   }
   gets($url): Observable<Service> {
     return this.http.get<Service>($url);

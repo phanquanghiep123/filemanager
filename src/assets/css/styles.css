@@ -1,18 +1,84 @@
-.left{
-    float: left;
+.left {
+  float: left;
 }
-.right{
-    float: right;
+
+.right {
+  float: right;
 }
-body .container{
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
+
+body .container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
 }
+
 .mdi {
-    font-size: 20px;
-    color: #000;
+  font-size: 20px;
+  color: #000;
 }
-.inline-block{
-    display: inline-block;
+
+.inline-block {
+  display: inline-block;
+}
+
+.icon-node .mdi {
+  font-size: 16px;
+}
+
+.a-node {
+  font-size: 14px;
+  color: #000000;
+}
+
+.icon-node {
+  display: inline-block;
+  font: normal normal normal 24px/1 "Material Design Icons";
+  font-size: inherit;
+  text-rendering: auto;
+  line-height: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 18px;
+  color: #cccccc;
+}
+.li-node:hover > a{
+    color: #bd9f00;
+}
+.li-node a{
+    text-decoration: none;
+}
+.li-node:hover > i{
+    color: #bd9f00;
+}
+.ul-node {
+  padding: 0;
+  background-image: url('../images/node-ul-bg.png');
+  background-repeat: repeat-y;
+  background-position: 6px;
+}
+.folder > .icon-node{
+    color: goldenrod;
+}
+.ul-root {
+  padding: 0;
+}
+
+.ul-node .li-node {
+  padding-left: 20px;
+}
+
+.li-node {
+  position: relative;
+}
+
+.ul-node .li-node::after {
+    content: '';
+    position: absolute;
+    background-image: url(../images/node-li-bg.png);
+    background-repeat: repeat-x;
+    top: 0;
+    left: 7px;
+    bottom: 0;
+    width: 13px;
+    background-position: 0px 12px;
 }
