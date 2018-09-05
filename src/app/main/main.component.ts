@@ -1,5 +1,6 @@
-import { Component, OnInit ,Input,ViewChild} from '@angular/core';
-import {ContentComponent} from '../content/content.component';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ContentComponent } from '../content/content.component';
+import { SidaberComponent } from '../sidaber/sidaber.component';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -7,9 +8,10 @@ import {ContentComponent} from '../content/content.component';
 })
 export class MainComponent implements OnInit {
   @ViewChild(ContentComponent) Content : ContentComponent;
+  
   constructor() {
   }
   ngOnInit() {
   }
- 
+
 }

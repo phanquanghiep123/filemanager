@@ -30,7 +30,7 @@ body .container {
   color: #000000;
 }
 
-.icon-node {
+.icon-node,.icon-file {
   display: inline-block;
   font: normal normal normal 24px/1 "Material Design Icons";
   font-size: inherit;
@@ -61,10 +61,13 @@ body .container {
   background-position: 6px;
 }
 
-.folder>.icon-node {
+.folder>.icon-node ,.folder>.icon-file{
   color: goldenrod;
 }
-
+.icon-file{
+  font-size: 100px;
+  margin: 0 auto;
+}
 .ul-root {
   padding: 0;
 }
@@ -99,4 +102,167 @@ body .container {
 .jstree_filemanage .ul-root{
   padding: 0;
   margin: 0;
+}
+.grid li {
+  float: left;
+  list-style: none;
+}
+.grid{
+  width: 100%;
+  float: left;
+  display: block;
+  padding-left: 0;
+}
+img{
+  max-width: 100%;
+}
+.detail-item img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.detail-item .title_file{
+  background: #ffffff;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  height: 32px;
+}
+.detail-item .title_file h4{
+  font-size: 12px;
+  color: #000;
+  text-align: center;
+  line-height: 2.5;
+}
+.detail-item {
+  padding: 10px;
+}
+.detail-item .bg{
+  width: 100%;
+  background: #dddddd;
+  position: relative;
+}
+.detail-item .is_file {
+  height: 150px;
+  display: table;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+.detail-item .action_file{
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  text-align: center;
+}
+
+.detail-item .title_file{
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  z-index: 2;
+  text-align: center;
+  -webkit-transition: top 0.5s; /* Safari */
+  transition: top 0.5s;
+}
+.main-item{
+  margin-bottom: 30px;
+}
+.main-item:hover .title_file{
+  top:80%;
+
+}
+.detail-item .action_file{
+  background: #dddddd;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  height: 32px;
+}
+.detail-item .action_file a{
+  padding: 0 5px;
+}
+.detail-item .action_file a i {
+  color: #000000;
+
+}
+.detail-item .select-action{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: right
+}
+.detail-item .action_file a:hover i {
+  
+  color: #f1f1f1;
+}
+.checkbox label:after, 
+.radio label:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.checkbox .cr,
+.radio .cr {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #887a7a;
+    border-radius: .25em;
+    width: 1.3em;
+    height: 1.3em;
+    float: left;
+    border-radius: 100%;
+    margin: 3px;
+}
+
+.radio .cr {
+    border-radius: 50%;
+}
+
+.checkbox .cr .cr-icon,
+.radio .cr .cr-icon {
+    position: absolute;
+    font-size: 21px;
+    line-height: 0;
+    top: 35%;
+    left: 11%;
+    font-weight: bold;
+}
+
+.radio .cr .cr-icon {
+    margin-left: 0.04em;
+}
+
+.checkbox label input[type="checkbox"],
+.radio label input[type="radio"] {
+    display: none;
+}
+
+.checkbox label input[type="checkbox"] + .cr > .cr-icon,
+.radio label input[type="radio"] + .cr > .cr-icon {
+    transform: scale(3) rotateZ(-20deg);
+    opacity: 0;
+    transition: all .3s ease-in;
+}
+
+.checkbox label input[type="checkbox"]:checked + .cr > .cr-icon,
+.radio label input[type="radio"]:checked + .cr > .cr-icon {
+    transform: scale(1) rotateZ(0deg);
+    opacity: 1;
+}
+
+.checkbox label input[type="checkbox"]:disabled + .cr,
+.radio label input[type="radio"]:disabled + .cr {
+    opacity: .5;
+}
+.checkbox label{
+  cursor: pointer;
+}
+.breadcrumb-component .breadcrumb{
+  padding: 7px;
+  margin: 6px 0;
 }

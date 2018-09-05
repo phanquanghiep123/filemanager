@@ -1,11 +1,5 @@
-<div class="container-fluid">
-  <div class="row-fluid ff-container">
-    <div class="span12">
-      <ul class="grid" id="main-items-container">
-        <li *ngFor="let item of LisTFile" class="main-item" [style.width]="WidthIem">
-            <app-file [file]="item"></app-file>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
+<ul class="grid" id="main-items-container">
+  <li *ngFor="let item of LisTFile" class="main-item" [style.width]="WidthIem">
+    <app-file [file]="item"></app-file>
+  </li>
+</ul>

@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { Config } from './models/config';
+import { ItemComponent } from './files/item/item.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers : [ItemComponent]
 })
 export class AppComponent {
   title = 'filemanager';
@@ -14,10 +16,10 @@ export class AppComponent {
       this.config = this.Config.getConfig();
       var string = '';
       string += `
-      .folder > .icon-node:before{
+      .folder > .icon-node:before,.folder .icon-file:before{
         content: "\\f24b";
       }
-      .icon-node:before{
+      .icon-node:before,.icon-file:before{
         content: "\\f214";
       }
       .li-node{
@@ -27,19 +29,28 @@ export class AppComponent {
       this.config.EXT;
       for(var i in this.config.EXT){
         var stringClass = this.config.EXT[i].join(" > .icon-node:before,.");
+        var stringClassFile = this.config.EXT[i].join(" .icon-file:before,.");
         stringClass = " ." +stringClass+ " > .icon-node:before {";
+        stringClassFile = " ." +stringClassFile+ " .icon-file:before {";
         if(i == "image"){
           stringClass+='content: "\\F24F";';
+          stringClassFile+='content: "\\F24F";';
+          
         }else if(i == "audio"){
           stringClass+='content: "\\f223";';
+          stringClassFile+='content: "\\f223";';
         }
         else if(i == "file"){
           stringClass+='content: "\\f214";';
+          stringClassFile+='content: "\\f214";';
         }else if(i == "video"){
           stringClass+='content: "\\f22b";';
+          stringClassFile+='content: "\\f22b";';
         }
         stringClass += "}";
+        stringClassFile += "}";
         string +=stringClass;
+        string +=stringClassFile;
       }
       var blob = new Blob([string], { type: 'text/css' });
       var gtm = document.createElement('link');

@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Config } from './models/config';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { provideRoutes} from '@angular/router';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -13,6 +12,7 @@ import { ContentComponent } from './content/content.component';
 import { UploadsComponent } from './uploads/uploads.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { ItemComponent } from './files/item/item.component';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
 
 @NgModule({
@@ -26,6 +26,7 @@ import { ItemComponent } from './files/item/item.component';
     UploadsComponent,
     SafeHtmlPipe,
     ItemComponent,
+    BreadcrumbComponent,
 
   ],
   imports: [
@@ -34,7 +35,7 @@ import { ItemComponent } from './files/item/item.component';
     AppRoutingModule
     
   ],
-  providers: [Config,HttpClient,SidaberComponent ,ContentComponent],
+  providers: [Config,HttpClient,SidaberComponent ,ContentComponent,BreadcrumbComponent,ItemComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

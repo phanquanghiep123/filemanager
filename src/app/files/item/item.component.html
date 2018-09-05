@@ -1,14 +1,24 @@
-<div *ngIf="file && ImageExe"class="detail-item">
-  <div class="is_file {{file.extension}}">
-    <i *ngIf="ImageExe.indexOf(file.extension) == -1" class="icon-file"></i>
-    <img *ngIf="ImageExe.indexOf(file.extension) > -1" [src]="'http://weddingguu.xyz/' + file.path"  class="img-file"/>
-  </div>
-  <div class="title_file {{file.extension}}">
-    <h4> {{file.name}}</h4>
-  </div>
-  <div class="info_file {{file.extension}}">  
-  </div>
-  <div class="action_file {{file.extension}}"> 
+<div *ngIf="file && ImageExe" class="detail-item">
+  <div class="bg">
+    <div class="select-action">
+        <div class="checkbox">
+            <label>
+              <input type="checkbox" value="">
+              <span class="cr"><i class="cr-icon mdi mdi-check"></i></span>
+            </label>
+          </div>
+    </div>
+    <div (click)="ViewFile()" class="is_file {{file.extension}}">
+      <i *ngIf="ImageExe.indexOf(file.extension) == -1" class="icon-file"></i>
+      <img *ngIf="ImageExe.indexOf(file.extension) > -1" [src]="'http://weddingguu.xyz/' + file.thumb" class="img-file" />
+    </div>
+    <div class="title_file {{file.extension}}">
+      <h4> {{file.name}}</h4>
+    </div>
+    <div class="action_file {{file.extension}}">
+      <a href="javascript:;"><i class="mdi mdi-eyedropper-variant"></i></a>
+      <a href="javascript:;"><i class="mdi mdi-eye-outline"></i></a>
+      <a href="javascript:;"><i class="mdi mdi-delete"></i></a>
+    </div>
   </div>
 </div>
-

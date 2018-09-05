@@ -3,6 +3,7 @@
      "sub_folder": "",
      "get_data": "http://filemanager.com?action=init",
      "get_trees": "http://filemanager.com?action=trees",
+     "get_folder": "http://filemanager.com?action=folder&id={id}",
      "get_file": "http://filemanager.com?action=file"
    },
    "database": {
