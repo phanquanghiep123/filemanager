@@ -12,6 +12,7 @@ import { SidaberComponent } from './sidaber/sidaber.component';
 import { ContentComponent } from './content/content.component';
 import { UploadsComponent } from './uploads/uploads.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+import { ItemComponent } from './files/item/item.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
     ContentComponent,
     UploadsComponent,
     SafeHtmlPipe,
+    ItemComponent,
 
   ],
   imports: [
