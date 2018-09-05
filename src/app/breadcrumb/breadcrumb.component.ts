@@ -1,5 +1,4 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { SidaberComponent } from '../sidaber/sidaber.component';
 import { Trees } from '../models/trees';
 
 @Component({
@@ -10,7 +9,6 @@ import { Trees } from '../models/trees';
 export class BreadcrumbComponent implements OnInit {
   breadcrumbs: Trees[] = [];
   constructor(
-    private SidaberComponent: SidaberComponent,
     private ElementRef: ElementRef
 
   ) {

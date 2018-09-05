@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { Config } from './models/config';
-import { ItemComponent } from './files/item/item.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers : [ItemComponent]
 })
 export class AppComponent {
   title = 'filemanager';

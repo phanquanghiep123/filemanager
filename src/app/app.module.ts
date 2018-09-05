@@ -13,8 +13,6 @@ import { UploadsComponent } from './uploads/uploads.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { ItemComponent } from './files/item/item.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +33,7 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
     AppRoutingModule
     
   ],
-  providers: [Config,HttpClient,SidaberComponent ,ContentComponent,BreadcrumbComponent,ItemComponent],
+  providers: [Config,HttpClient,SidaberComponent ,ContentComponent,BreadcrumbComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
