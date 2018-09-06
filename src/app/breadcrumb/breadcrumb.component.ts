@@ -1,4 +1,5 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2 ,Input} from '@angular/core';
+
 import { Trees } from '../models/trees';
 
 @Component({
@@ -7,21 +8,21 @@ import { Trees } from '../models/trees';
   styleUrls: ['./breadcrumb.component.css']
 })
 export class BreadcrumbComponent implements OnInit {
-  breadcrumbs: Trees[] = [];
+  @Input () breadcrumbs: Trees[];
   constructor(
-    private ElementRef: ElementRef
-
+    private ElementRef: ElementRef,
+    private Renderer: Renderer2
   ) {
-
   }
   ngOnInit() {
-    var root = new Trees();
-    root.id = 0;
-    root.name = "Root";
-    this.breadcrumbs.push(root);
+    var img = new Trees();
+    img.id = 4;
+    img.name ="Images";
+    this.breadcrumbs.push(img);
   }
   ClickItem($item: Trees) {
-    var a = document.querySelector(".a-node-"+$item.id+"");
-     
+    let a = <HTMLElement>document.querySelector(".a-node.a-node-"+$item.id);
+    a.click();
+    return false;
   }
 }

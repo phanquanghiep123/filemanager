@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, Renderer2 } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Renderer2, Input } from '@angular/core';
 import { TreesService } from '../services/trees.service';
 import { MediaService } from '../services/media.service';
 import { Service } from '../models/service';
@@ -13,15 +13,15 @@ declare var $: any;
 })
 export class SidaberComponent implements OnInit {
   jsTree: any;
-  BindHtml: string;
-  trees: [Trees];
   medias: [Media];
   config: any;
   Service: Service;
   interval: any;
   UL: string = "";
+  trees : [Trees]
   TUL: any = this.Renderer.createElement("ul");
   @ViewChild('viewTree') viewTree: ElementRef;
+  @Input() breadcrumbs : Trees[];
   constructor(
     private TreesService: TreesService,
     private app: AppComponent,
@@ -31,20 +31,25 @@ export class SidaberComponent implements OnInit {
   ) {
   }
   ngOnInit() {
+    var n = new Trees();
+    n.id=6;
+    n.name = "sadfassa";
+    this.breadcrumbs.push(n);
     this.interval = setInterval(() => {
       if (this.app.config != undefined) {
         this.TreesService.gets(this.app.config.BASE['get_trees']).subscribe(data => {
           this.Service = data;
           if (this.Service.status) {
-            this.trees = this.Service.response;
+            this.app.Trees = this.Service.response;
             this.medias = this.Service.response;
             this.MainComponent.Content.LisTFile = this.medias;
-            this.TUL = this.Create_Tree2(this.trees, 0);
+            this.TUL = this.Create_Tree2(this.app.Trees, 0);
             this.Renderer.appendChild(this.viewTree.nativeElement, this.TUL);
           }
         });
         clearInterval(this.interval);
       }
+      
     }, 10);
   }
   private Create_Tree2($datas: [Trees], $pid = 0) {

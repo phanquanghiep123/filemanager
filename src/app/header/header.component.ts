@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit , Input} from '@angular/core';
+import { Trees } from '../models/trees';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   actions = [];
+  @Input () breadcrumbs:Trees[]; 
   constructor() { 
     this.actions = [
       {name : "back folder","icon" : "mdi-subdirectory-arrow-left"},

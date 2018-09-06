@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule} from '@angular/core';
 import { Config } from './models/config';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AppComponent } from './app.component';
@@ -13,6 +13,7 @@ import { UploadsComponent } from './uploads/uploads.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { ItemComponent } from './files/item/item.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import {Input } from '@angular/core';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,10 +31,10 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
     
   ],
-  providers: [Config,HttpClient,SidaberComponent ,ContentComponent,BreadcrumbComponent],
+  providers: [Config,HttpClient,SidaberComponent ,ContentComponent,BreadcrumbComponent,Input],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

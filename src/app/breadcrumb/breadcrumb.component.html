@@ -1,6 +1,7 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li *ngFor="let breadcrumb of breadcrumbs ;let i = $index" class="breadcrumb-item"><a href="#">{{breadcrumb.name}}</a></li>   
-     
+    <li *ngFor="let breadcrumb of breadcrumbs ;let i = $index" class="breadcrumb-item">
+      <a (click)="ClickItem(breadcrumb)" href="javascript:;">{{breadcrumb.name}}</a>
+    </li>     
   </ol>
 </nav>

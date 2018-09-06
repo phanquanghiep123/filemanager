@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Config } from './models/config';
+import { Trees } from './models/trees';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,6 +10,8 @@ export class AppComponent {
   title = 'filemanager';
   config: Config;
   interval : any;
+  breadcrumbs : Trees[] = [];
+  Trees: [Trees];
   constructor(public Config: Config) {
     this.interval = setInterval (() => {
       this.config = this.Config.getConfig();
@@ -57,6 +60,10 @@ export class AppComponent {
       var s = document.getElementsByTagName('link')[0];
       s.parentNode.insertBefore(gtm, s);
       clearInterval(this.interval);
-    },10)
+    },10);
+    var root = new Trees();
+    root.id = 0;
+    root.name = "Root";
+    this.breadcrumbs.push(root);
   }
 }
