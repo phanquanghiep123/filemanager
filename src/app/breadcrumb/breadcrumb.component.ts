@@ -15,10 +15,7 @@ export class BreadcrumbComponent implements OnInit {
   ) {
   }
   ngOnInit() {
-    var img = new Trees();
-    img.id = 4;
-    img.name ="Images";
-    this.breadcrumbs.push(img);
+   
   }
   ClickItem($item: Trees) {
     let a = <HTMLElement>document.querySelector(".a-node.a-node-"+$item.id);

@@ -8,7 +8,8 @@ export class Media {
     extension: string = ""
     size: string = ""
     parent: number = 0
-    status : boolean = true
-    created_at : Date = null
-    updated_at : Date = null
+    status: boolean = true
+    created_at: Date = null
+    updated_at: Date = null
+    active: boolean = false
 }

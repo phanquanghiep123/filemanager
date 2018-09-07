@@ -11,16 +11,16 @@ export class AppComponent {
   config: Config;
   interval : any;
   breadcrumbs : Trees[] = [];
-  Trees: [Trees];
+  Trees: Trees[] = [];
   constructor(public Config: Config) {
     this.interval = setInterval (() => {
       this.config = this.Config.getConfig();
       var string = '';
       string += `
-      .folder > .icon-node:before,.folder .icon-file:before{
+      .folder > .a-node:before,.folder .icon-file:before{
         content: "\\f24b";
       }
-      .icon-node:before,.icon-file:before{
+      .a-node:before,.icon-file:before{
         content: "\\f214";
       }
       .li-node{
@@ -29,9 +29,9 @@ export class AppComponent {
       `; 
       this.config.EXT;
       for(var i in this.config.EXT){
-        var stringClass = this.config.EXT[i].join(" > .icon-node:before,.");
+        var stringClass = this.config.EXT[i].join(" > .a-node:before,.");
         var stringClassFile = this.config.EXT[i].join(" .icon-file:before,.");
-        stringClass = " ." +stringClass+ " > .icon-node:before {";
+        stringClass = " ." +stringClass+ " > .a-node:before {";
         stringClassFile = " ." +stringClassFile+ " .icon-file:before {";
         if(i == "image"){
           stringClass+='content: "\\F24F";';
@@ -64,6 +64,8 @@ export class AppComponent {
     var root = new Trees();
     root.id = 0;
     root.name = "Root";
+    root.pid = -1;
+    root.extension="root";
     this.breadcrumbs.push(root);
   }
 }

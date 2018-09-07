@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,Output,EventEmitter } from '@angular/core';
 import { Media } from '../../models/media';
 import { Service } from '../../models/service';
 import { AppComponent } from '../../app.component';
@@ -10,6 +10,7 @@ import { MainComponent } from '../../main/main.component';
 })
 export class ItemComponent implements OnInit {
   @Input() file: Media;
+  @Output() changFile: EventEmitter<any> = new EventEmitter();
   Config: any;
   ImageExe: any = null;
   medias: [Media];
@@ -27,14 +28,14 @@ export class ItemComponent implements OnInit {
   }
   ViewFile() {
     if (this.file.extension == "folder") {
-      var url_get_folder = this.app.config.BASE['get_folder'];
-      url_get_folder = url_get_folder.replace("{id}", this.file.id);
-      this.MediaService.getFolder(url_get_folder).subscribe(data => {
-        this.Service = data;
-        this.medias = this.Service.response;
-        this.MainComponent.Content.LisTFile = this.medias;
-      });
+      let a = <HTMLElement>document.querySelector(".a-node.a-node-" + this.file.id);
+      a.click();
+      return false;
     }
     return false;
+  }
+  viewDetail(){
+   
+    this.changFile.emit(this.file);
   }
 }

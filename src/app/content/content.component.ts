@@ -1,51 +1,56 @@
-import { Component, OnInit, Injectable, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { Media } from '../models/media';
-@Injectable()
+declare var $: any;
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html'
 })
 export class ContentComponent implements OnInit {
-  LisTFile: [Media];
+  LisTFile: Media[];
   Column: number = 8;
+  file : Media;
   WidthIem = 100 / this.Column + "%";
   constructor() {
     
   }
+  OnchangeFile ($file : Media){
+    this.file = $file;
+    $("#myModalViewFile").modal();
+  }
   ngOnInit() {
     var width = window.innerWidth;
     var height = window.innerHeight
-    if (width > 1365) {
-      this.Column = 8;
-    } else if (width > 1023) {
+    if (width <= 420) {
+      this.Column = 1;
+    } else if (width > 420 && width <= 768) {
+      this.Column = 3;
+    }
+    else if (width > 768 && width <= 1024) {
+      this.Column = 5;
+    }
+    else if (width > 1024 && width <= 1366) {
       this.Column = 6;
     }
-    else if (width > 767) {
-      this.Column = 4;
-    }
-    else if (width > 639) {
-      this.Column = 2;
-    }
-    else if (width < 419) {
-      this.Column = 1;
+    else{
+      this.Column = 8;
     }
     this.WidthIem = 100 / this.Column + "%";
     window.onresize = (event) => {
       width = window.innerWidth;
       height = window.innerHeight
-      if (width > 1365) {
-        this.Column = 8;
-      } else if (width > 1023) {
+      if (width <= 420) {
+        this.Column = 1;
+      } else if (width > 420 && width <= 768) {
+        this.Column = 3;
+      }
+      else if (width > 768 && width <= 1024) {
+        this.Column = 5;
+      }
+      else if (width > 1024 && width <= 1366) {
         this.Column = 6;
       }
-      else if (width > 767) {
-        this.Column = 4;
-      }
-      else if (width > 639) {
-        this.Column = 2;
-      }
-      else if (width < 419) {
-        this.Column = 1;
+      else{
+        this.Column = 8;
       }
       this.WidthIem = 100 / this.Column + "%";
     };
