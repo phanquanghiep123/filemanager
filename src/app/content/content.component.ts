@@ -1,4 +1,4 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, OnInit, Injectable, Output ,EventEmitter} from '@angular/core';
 import { Media } from '../models/media';
 declare var $: any;
 @Component({
@@ -10,12 +10,16 @@ export class ContentComponent implements OnInit {
   Column: number = 8;
   file : Media;
   WidthIem = 100 / this.Column + "%";
-  constructor() {
+  @Output () cropperDataFile = new EventEmitter()
+  constructor() { 
     
   }
   OnchangeFile ($file : Media){
     this.file = $file;
     $("#myModalViewFile").modal();
+  }
+  cropperData (){
+    this.cropperDataFile.emit();
   }
   ngOnInit() {
     var width = window.innerWidth;

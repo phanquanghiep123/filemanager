@@ -14,6 +14,7 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { ItemComponent } from './files/item/item.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import {Input } from '@angular/core';
+import { CropperComponent } from './cropper/cropper.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +27,7 @@ import {Input } from '@angular/core';
     SafeHtmlPipe,
     ItemComponent,
     BreadcrumbComponent,
+    CropperComponent,
 
   ],
   imports: [

@@ -8,91 +8,162 @@
     <!-- Modal content-->
     <div class="modal-content" *ngIf="file">
       <a type="button" class="close" data-dismiss="modal">&times;</a>
-      <form id="save-edit" method="post" enctype="multipart/form-data">
+      <form id="save-edit" method="post" class="height-100" enctype="multipart/form-data">
         <input type="hidden" id="base64image" name="base64image">
         <!-- Modal content-->
-        <div class="modal-body">
-          <div id="content-edit-media">
-            <div class="row">
-              <div class="col-md-9">
+        <div class="modal-body height-100">
+          <div id="content-edit-media" class="height-100">
+            <div class="row height-100">
+              <div class="col-md-9 height-100">
                 <div class="img-container">
+                  <app-cropper (cropperDataFile) ="cropperDataFile($event)" [file]="file" class="app-cropper height-100 block"></app-cropper>
                   <img id="image" src="http://weddingguu.com/uploads/c81e728d9d4c2f636f067f89cc14862c/5b909ea9bd698.jpg"
                     alt="Picture" class="cropper-hidden">
                 </div>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-3 height-100">
                 <!-- <h3>Data:</h3> -->
-                <div class="docs-data">
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">X</span>
-                    </div>
-                    <input type="text" class="form-control" value="0" id="dataX" placeholder="x" readonly="">
-                    <div class="input-group-append">
-                      <span class="input-group-text">px</span>
+                <div class="data-box">
+                  <div class="docs-preview clearfix">
+                    <div class="docs-preview clearfix">
+                      <div class="img-preview preview-lg"></div>
                     </div>
                   </div>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">Y</span>
-                    </div>
-                    <input type="text" class="form-control" value="0" id="dataY" placeholder="y" readonly="">
-                    <div class="input-group-append">
-                      <span class="input-group-text">px</span>
-                    </div>
+                  <div class="controll-data" id="actions">
+                    <ul>
+                      <li><button type="button" class="btn btn-primary" data-method="move" data-option="-10"
+                          data-second-option="0" title="Move Left">
+                          <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.move(-10, 0)">
+                            <span class="mdi mdi-arrow-left-thick"></span>
+                          </span>
+                        </button>
+                      </li>
+                      <li>
+                        <button type="button" class="btn btn-primary" data-method="move" data-option="10"
+                          data-second-option="0" title="Move Right">
+                          <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.move(10, 0)">
+                            <span class="mdi mdi-arrow-right-thick"></span>
+                          </span>
+                        </button>
+                      </li>
+                      <li>
+                        <button type="button" class="btn btn-primary" data-method="move" data-option="0"
+                          data-second-option="-10" title="Move Up">
+                          <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.move(0, -10)">
+                            <span class="mdi mdi-arrow-up-thick"></span>
+                          </span>
+                        </button>
+                      </li>
+                      <li><button type="button" class="btn btn-primary" data-method="move" data-option="0"
+                          data-second-option="10" title="Move Down">
+                          <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.move(0, 10)">
+                            <span class="mdi mdi-arrow-down-thick"></span>
+                          </span>
+                        </button></li>
+                    </ul>
+                    <ul>
+                      <li><button type="button" class="btn btn-primary" data-method="rotate" data-option="-45" title="Rotate Left">
+                          <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.rotate(-45)">
+                            <span class="mdi mdi-rotate-left"></span>
+                          </span>
+                        </button>
+                      </li>
+                      <li>
+                        <button type="button" class="btn btn-primary" data-method="rotate" data-option="45" title="Rotate Right">
+                          <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.rotate(45)">
+                            <span class="mdi mdi-rotate-right"></span>
+                          </span>
+                        </button>
+                      </li>
+                      <li><button type="button" class="btn btn-primary" data-method="rotate" data-option="-180" title="Rotate Left">
+                          <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.rotate(-180)">
+                            <span class="mdi mdi-replay"></span>
+                          </span>
+                        </button>
+                      </li>
+                      <li>
+                        <button type="button" class="btn btn-primary" data-method="rotate" data-option="180" title="Rotate Right">
+                          <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.rotate(180)">
+                            <span class="mdi mdi-reload"></span>
+                          </span>
+                        </button>
+                      </li>
+                    </ul>
+                    <ul>
+                      <li>
+                        <button type="button" class="btn btn-primary" data-method="round" title="setAspectRatio round">
+                          <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.round()">
+                            <span class="mdi mdi-checkbox-blank-circle-outline"></span>
+                          </span>
+                        </button>
+                      </li>
+                      <li>
+                        <button type="button" class="btn btn-primary" data-method="square" title="setAspectRatio square">
+                          <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.square()">
+                            <span class="mdi mdi-crop-square"></span>
+                          </span>
+                        </button>
+                      </li>
+                      <li>
+                          <button type="button" class="btn btn-primary" data-method="setAspectRatio21" title="setAspectRatio setAspectRatio21">
+                            <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.setAspectRatio21()">
+                              <span class="mdi">2/1</span>
+                            </span>
+                          </button>
+                        </li>
+                      <li>
+                        <button type="button" class="btn btn-primary" data-method="auto" title="setAspectRatio Auto">
+                          <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.auto()">
+                            <span class="mdi mdi-flash-auto"></span>
+                          </span>
+                        </button>
+                      </li>
+                    </ul>
                   </div>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">Width</span>
+                  <div class="docs-data">
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Width</span>
+                      </div>
+                      <input type="text" value="720" class="form-control" id="dataWidth" placeholder="width" readonly="">
+                      <div class="input-group-append">
+                        <span class="input-group-text">px</span>
+                      </div>
                     </div>
-                    <input type="text" value="720" class="form-control" id="dataWidth" placeholder="width" readonly="">
-                    <div class="input-group-append">
-                      <span class="input-group-text">px</span>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Height</span>
+                      </div>
+                      <input type="text" value="1280" class="form-control" id="dataHeight" placeholder="height"
+                        readonly="">
+                      <div class="input-group-append">
+                        <span class="input-group-text">px</span>
+                      </div>
                     </div>
-                  </div>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">Height</span>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Path</span>
+                      </div>
+                      <input type="text" class="form-control" value="/uploads/c81e728d9d4c2f636f067f89cc14862c/5b909ea9bd698.jpg"
+                        readonly="">
                     </div>
-                    <input type="text" value="1280" class="form-control" id="dataHeight" placeholder="height" readonly="">
-                    <div class="input-group-append">
-                      <span class="input-group-text">px</span>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Name</span>
+                      </div>
+                      <input type="text" class="form-control" id="media-name" value="78411DF0-84AE-4BA5-A15E-EAFD8CF7B19C.jpg"
+                        placeholder="Enter media name">
                     </div>
-                  </div>
-
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">Size</span>
-                    </div>
-                    <input type="text" value="95.17" class="form-control" id="dataSize" placeholder="Size" readonly="">
-                    <div class="input-group-append">
-                      <span class="input-group-text">kB</span>
-                    </div>
-                  </div>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">Path</span>
-                    </div>
-                    <input type="text" class="form-control" value="/uploads/c81e728d9d4c2f636f067f89cc14862c/5b909ea9bd698.jpg"
-                      readonly="">
-                  </div>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">Name</span>
-                    </div>
-                    <input type="text" class="form-control" id="media-name" value="78411DF0-84AE-4BA5-A15E-EAFD8CF7B19C.jpg"
-                      placeholder="Enter media name">
-                  </div>
-                  <div class="modal-footer">
+                    <div class="modal-footer">
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Save</button>
+                      <button type="submit" class="btn btn-primary" (click)="cropperData()">Save</button>
                     </div>
+                  </div>
                 </div>
-                
               </div>
             </div>
           </div>
-        </div> 
+        </div>
       </form>
     </div>
   </div>
