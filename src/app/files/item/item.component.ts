@@ -11,7 +11,6 @@ import { MainComponent } from '../../main/main.component';
 export class ItemComponent implements OnInit {
   @Input() file: Media;
   @Output() changFile: EventEmitter<any> = new EventEmitter();
-  Config: any;
   ImageExe: any = null;
   medias: [Media];
   Service: Service;
@@ -23,8 +22,8 @@ export class ItemComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.Config = this.app.config;
-    this.ImageExe = (this.Config.EXT['image']);
+    this.ImageExe = (this.app.config.EXT['image']);
+    this.file.public_path = this.app.config.BASE['public_path'] + this.file.thumb;
   }
   ViewFile() {
     if (this.file.extension == "folder") {
@@ -35,7 +34,6 @@ export class ItemComponent implements OnInit {
     return false;
   }
   viewDetail(){
-   
     this.changFile.emit(this.file);
   }
 }

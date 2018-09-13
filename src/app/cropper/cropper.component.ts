@@ -105,20 +105,20 @@ export class CropperComponent implements OnInit {
       this.cropper.destroy();
       this.cropper = null;
     });
-    var _this = this;
+    var _seff = this;
     actions.find("button").click(function () {
       var option = $(this).attr("data-option");
       var method = $(this).attr("data-method");
       var second_option = $(this).attr("data-second-option");
       if(option == null)
-      _this.cropper[method]();
+      _seff.cropper[method]();
       else if (second_option != null)
-      _this.cropper[method](option, second_option);
+      _seff.cropper[method](option, second_option);
       else
-      _this.cropper[method](option);
+      _seff.cropper[method](option);
     });
   }
-  cropperDataFile($event) {
+  cropperDataFile() {
       console.log(this.cropper);
   }
 

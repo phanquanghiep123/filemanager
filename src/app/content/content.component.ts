@@ -1,4 +1,6 @@
-import { Component, OnInit, Injectable, Output ,EventEmitter} from '@angular/core';
+import { Component, OnInit, Injectable,ViewChild,Input} from '@angular/core';
+import { CropperComponent } from '../cropper/cropper.component';
+import { AppComponent } from '../app.component';
 import { Media } from '../models/media';
 declare var $: any;
 @Component({
@@ -9,17 +11,25 @@ export class ContentComponent implements OnInit {
   LisTFile: Media[];
   Column: number = 8;
   file : Media;
+  myDropzone : any;
   WidthIem = 100 / this.Column + "%";
-  @Output () cropperDataFile = new EventEmitter()
-  constructor() { 
+  public_path : string = "";
+  @ViewChild(CropperComponent) Cropper : CropperComponent;
+  constructor(
+    private app : AppComponent
+  ) { 
     
   }
   OnchangeFile ($file : Media){
-    this.file = $file;
+    this.file = $file; 
     $("#myModalViewFile").modal();
   }
+  addItemContent ($file) {
+    this.LisTFile.join($file);
+  }
   cropperData (){
-    this.cropperDataFile.emit();
+    this.Cropper.cropperDataFile();
+    return false;
   }
   ngOnInit() {
     var width = window.innerWidth;
@@ -57,6 +67,9 @@ export class ContentComponent implements OnInit {
         this.Column = 8;
       }
       this.WidthIem = 100 / this.Column + "%";
-    };
+    }
+    setTimeout(() => {
+      this.public_path = this.app.config.BASE['public_path'];
+    },1000);
   }
 }

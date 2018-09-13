@@ -52,7 +52,6 @@ export class SidaberComponent implements OnInit {
             var a = this.Renderer.createElement('a');
             this.Renderer.addClass(a, 'a-node');
             this.Renderer.addClass(a, 'a-node-0');
-            
             this.Renderer.setAttribute(a, 'href', 'javascript:;');
             this.Renderer.setAttribute(a, 'data-node', JSON.stringify(root));
             this.Renderer.setAttribute(a, 'data-id', "0");
@@ -145,6 +144,7 @@ export class SidaberComponent implements OnInit {
         this.app.breadcrumbs.push(this.breadcrumbsNew[i]);
       }
       this.breadcrumbsNew = [];
+      this.app.CurrentFolder = $element;
     }
     return false;
   }

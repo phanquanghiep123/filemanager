@@ -7,8 +7,7 @@
   <div class="modal-dialog full-custom">
     <!-- Modal content-->
     <div class="modal-content" *ngIf="file">
-      <a type="button" class="close" data-dismiss="modal">&times;</a>
-      <form id="save-edit" method="post" class="height-100" enctype="multipart/form-data">
+      <form id="save-edit" (submit)="cropperData()" method="post" class="height-100" enctype="multipart/form-data">
         <input type="hidden" id="base64image" name="base64image">
         <!-- Modal content-->
         <div class="modal-body height-100">
@@ -16,7 +15,7 @@
             <div class="row height-100">
               <div class="col-md-9 height-100">
                 <div class="img-container">
-                  <app-cropper (cropperDataFile) ="cropperDataFile($event)" [file]="file" class="app-cropper height-100 block"></app-cropper>
+                  <app-cropper (cropperDataFile)="cropperDataFile($event)" [file]="file" class="app-cropper height-100 block"></app-cropper>
                   <img id="image" src="http://weddingguu.com/uploads/c81e728d9d4c2f636f067f89cc14862c/5b909ea9bd698.jpg"
                     alt="Picture" class="cropper-hidden">
                 </div>
@@ -105,12 +104,12 @@
                         </button>
                       </li>
                       <li>
-                          <button type="button" class="btn btn-primary" data-method="setAspectRatio21" title="setAspectRatio setAspectRatio21">
-                            <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.setAspectRatio21()">
-                              <span class="mdi">2/1</span>
-                            </span>
-                          </button>
-                        </li>
+                        <button type="button" class="btn btn-primary" data-method="setAspectRatio21" title="setAspectRatio setAspectRatio21">
+                          <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.setAspectRatio21()">
+                            <span class="mdi">2/1</span>
+                          </span>
+                        </button>
+                      </li>
                       <li>
                         <button type="button" class="btn btn-primary" data-method="auto" title="setAspectRatio Auto">
                           <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.auto()">
@@ -156,7 +155,7 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary" (click)="cropperData()">Save</button>
+                      <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                   </div>
                 </div>
@@ -165,6 +164,35 @@
           </div>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+<div id="myModalAddFolder" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend"><span class="input-group-text">Folder name</span></div>
+          <input class="form-control" id="folder-name" type="text" required="required" maxlength="255" placeholder="Enter folder name">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="add-folder-now">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="myModalUpload" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <app-breadcrumb [breadcrumbs]="app.breadcrumbs"></app-breadcrumb>   
+        <app-uploads (addItemContent) ="addItemContent($event)"></app-uploads>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
     </div>
   </div>
 </div>

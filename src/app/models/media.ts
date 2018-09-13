@@ -12,4 +12,5 @@ export class Media {
     created_at: Date = null
     updated_at: Date = null
     active: boolean = false
+    public_path : string;
 }

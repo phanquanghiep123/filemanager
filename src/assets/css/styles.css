@@ -477,3 +477,9 @@ img {
   margin: 0 auto;
   margin-bottom: 15px;
 }
+
+.modal-body {
+  position: relative;
+  padding: 15px;
+}
+.modal-body .input-group:last-child{margin-bottom: 0 !important;}

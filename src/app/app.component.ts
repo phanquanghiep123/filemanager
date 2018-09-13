@@ -12,6 +12,7 @@ export class AppComponent {
   interval : any;
   breadcrumbs : Trees[] = [];
   Trees: Trees[] = [];
+  CurrentFolder : Trees;
   constructor(public Config: Config) {
     this.interval = setInterval (() => {
       this.config = this.Config.getConfig();
@@ -67,5 +68,6 @@ export class AppComponent {
     root.pid = -1;
     root.extension="root";
     this.breadcrumbs.push(root);
+    this.CurrentFolder = root;
   }
 }
