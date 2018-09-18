@@ -1,9 +1,9 @@
 <div *ngIf="file && ImageExe" class="detail-item">
-  <div class="bg">
+  <div class="bg" [ngClass]="{'is_cut': file.is_cut }">
     <div class="select-action">
         <div class="checkbox">
             <label>
-              <input type="checkbox" value="">
+              <input type="checkbox" [checked] = "file.select" (click) = "OnChooseFile()" value="">
               <span class="cr"><i class="cr-icon mdi mdi-check"></i></span>
             </label>
           </div>

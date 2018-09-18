@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Config } from './models/config';
 import { Trees } from './models/trees';
+import { Media } from './models/media';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,6 +14,22 @@ export class AppComponent {
   breadcrumbs : Trees[] = [];
   Trees: Trees[] = [];
   CurrentFolder : Trees;
+  CurrentFiles : Media[] = [];
+  MySeclect    : Media[] = [];
+  ListChoose = [];
+  actions = [
+    { name: "back folder", "icon": "mdi-subdirectory-arrow-left",class : "on-allow" },
+    { name: "next folder", "icon": "mdi-subdirectory-arrow-right" ,class : "on-allow" },
+    { name: "new folder", "icon": "mdi-folder-plus" ,class : "on-allow" },   
+    { name: "new file", "icon": "mdi-file-plus" ,class : "on-allow"},
+    { name: "all folder", "icon": "mdi-clipboard-check-outline" ,class : "on-allow" },
+    { name: "copy file", "icon": "mdi-content-copy", class : "off-allow" },
+    { name: "cut file", "icon": "mdi-content-cut" ,class : "off-allow" },
+    { name: "paste file", "icon": "mdi-content-paste" ,class : "onoff-allow" },
+    { name: "delete file", "icon": "mdi-delete" ,class : "off-allow"},
+  ];
+  action = {};
+  checkall = false;
   constructor(public Config: Config) {
     this.interval = setInterval (() => {
       this.config = this.Config.getConfig();

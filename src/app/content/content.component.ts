@@ -8,7 +8,6 @@ declare var $: any;
   templateUrl: './content.component.html'
 })
 export class ContentComponent implements OnInit {
-  LisTFile: Media[];
   Column: number = 8;
   file : Media;
   myDropzone : any;
@@ -22,10 +21,9 @@ export class ContentComponent implements OnInit {
   }
   OnchangeFile ($file : Media){
     this.file = $file; 
-    $("#myModalViewFile").modal();
   }
   addItemContent ($file) {
-    this.LisTFile.join($file);
+    this.app.CurrentFiles.join($file);
   }
   cropperData (){
     this.Cropper.cropperDataFile();

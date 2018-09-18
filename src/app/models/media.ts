@@ -13,4 +13,6 @@ export class Media {
     updated_at: Date = null
     active: boolean = false
     public_path : string;
+    select :boolean = false;
+    is_cut : boolean = false;
 }

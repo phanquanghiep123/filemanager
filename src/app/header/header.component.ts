@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Trees } from '../models/trees';
+import { AppComponent } from '../app.component';
 declare var $: any;
 @Component({
   selector: 'app-header',
@@ -7,27 +8,81 @@ declare var $: any;
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  actions = [];
   @Input() breadcrumbs: Trees[];
-  constructor() {
-    this.actions = [
-      { name: "back folder", "icon": "mdi-subdirectory-arrow-left" },
-      { name: "next folder", "icon": "mdi-subdirectory-arrow-right" },
-      { name: "new folder", "icon": "mdi-folder-plus" },
-      { name: "new file", "icon": "mdi-file-plus" },
-      { name: "copy file", "icon": "mdi-content-copy" },
-      { name: "cut file", "icon": "mdi-content-cut" },
-      { name: "delete file", "icon": "mdi-delete" },
-    ]
+  constructor(
+    private app: AppComponent
+  ) {
+    
   }
   ngOnInit() {
+   
   }
-
   Actions_FNC($action) {
+    
+    if($action.class == "off-allow" && this.app.MySeclect.length <= 0) return false;
     if ($action.name == "new folder") {
       $("#myModalAddFolder").modal();
-    }else if($action.name == 'new file'){
+    } else if ($action.name == 'new file') 
+    {
       $("#myModalUpload").modal();
+    } else if ($action.name == "copy file") 
+    {
+      this.app.CurrentFiles.forEach(element => {
+        if (element.select == true) {
+          element.is_cut = false;
+        } 
+      });
+    } else if ($action.name == "cut file") 
+    {
+      this.app.CurrentFiles.forEach(element => {
+        if (element.select == true) {
+          element.is_cut = true;
+        } else {
+          element.is_cut = false;
+        }
+      });
     }
+    else if($action.name =="all folder"){
+      this.app.checkall = !this.app.checkall;
+      this.app.CurrentFiles.forEach(element => {
+        if(this.app.checkall == true){
+          element.select = true;
+          this.app.MySeclect.push(element);
+        }else{
+          element.select = false;
+          this.app.MySeclect.forEach((value,key) => {
+            if(value.id == element.id){
+              this.app.MySeclect.splice(key,1);
+            }
+          });
+        } 
+      });
+    }
+    else if($action.name =="paste file"){ 
+      this.app.MySeclect.forEach(value => {
+        this.app.CurrentFiles.push(value);
+      });
+      if(this.app.action['name'] =="cut file"){
+        this.app.MySeclect = [];
+      }
+    }
+    else if($action.name =="delete file"){
+      if($action.name ==  this.app.action['name']){
+        this.app.MySeclect.forEach(value => {
+          this.app.CurrentFiles.forEach((value1,key) =>{
+            if(value1.id == value.id ){
+              this.app.CurrentFiles.splice(key,1);
+              return false;
+            }
+          });
+        });
+        this.app.MySeclect = [];
+        $("#myModalRemoveFiles").modal("hide");
+      }else{
+        $("#myModalRemoveFiles").modal();
+      }
+      
+    }
+    this.app.action = $action;
   }
 }

@@ -8,11 +8,31 @@
     <div class="col-md-6">
       <nav class="navbar navbar-default right text-right">
         <ul class="nav navbar-nav d-inline-block">
-          <li class="active inline-block" *ngFor="let action of actions">
-            <a (click) = "Actions_FNC(action)" class="btn-sm btn btn-default"><i class="mdi {{action.icon}}"></i></a>
+          <li class="active inline-block" *ngFor="let item of app.actions">
+            <a [class]="item.class" [ngClass]="{
+              'disbale': (app.MySeclect.length <= 0),
+              'disbaleaction' : app.action.name != 'copy file' && app.action.name != 'cut file'
+            }" (click) = "Actions_FNC(item)" class="btn-sm btn btn-default"><i class="mdi {{item.icon}}"></i></a>
           </li>
         </ul>
       </nav>
+    </div>
+  </div>
+</div>
+<div id="myModalRemoveFiles" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="text-center">
+            <div class="alert alert-warning" role="alert">
+              Do you want to delete the selected list?
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" (click)="Actions_FNC(app.action)" class="btn btn-primary" id="add-folder-now">Ok</button>
+      </div>
     </div>
   </div>
 </div>

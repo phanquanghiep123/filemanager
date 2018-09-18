@@ -1,4 +1,4 @@
-.btn.btn-default{
+.navbar-default .btn.btn-default{
     line-height: 1.5;
     padding: 0 5px;
     background-color: #ccc;
@@ -7,4 +7,7 @@
 }
 .container{
     background: #000000;
+}
+.navbar-default .btn.btn-default:hover{
+    background-color: #ffffff;
 }

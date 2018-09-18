@@ -39,7 +39,7 @@ export class SidaberComponent implements OnInit {
           if (this.Service.status) {
             this.app.Trees = this.Service.response;
             this.medias = this.Service.response;
-            this.MainComponent.Content.LisTFile = this.medias;
+            this.app.CurrentFiles = this.medias;
             this.TUL = this.Create_Tree2(this.app.Trees, 0);
             var root = new Trees();
             root.id = 0;
@@ -108,6 +108,7 @@ export class SidaberComponent implements OnInit {
   }
   NodeClick($element: Trees, event) {
     if ($element.extension == "folder") {
+      this.app.checkall = false;
       var url_get_folder = this.app.config.BASE['get_folder'];
       url_get_folder = url_get_folder.replace("{id}", $element.id);
       var className = (event.target.parentElement.className);
@@ -116,7 +117,7 @@ export class SidaberComponent implements OnInit {
       this.MediaService.getFolder(url_get_folder).subscribe(data => {
         this.Service = data;
         this.medias = this.Service.response;
-        this.MainComponent.Content.LisTFile = this.medias;
+        this.app.CurrentFiles = this.medias; 
         if (indexOfClass1 == -1) {
           try {
             event.target.parentElement.querySelector("ul.ul-node").remove();
@@ -145,6 +146,7 @@ export class SidaberComponent implements OnInit {
       }
       this.breadcrumbsNew = [];
       this.app.CurrentFolder = $element;
+
     }
     return false;
   }

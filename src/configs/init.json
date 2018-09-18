@@ -1,11 +1,11 @@
  {
    "base": {
      "public_path": "http://weddingguu.com",
-     "get_data": "http://filemanager.com?action=init",
-     "get_trees": "http://filemanager.com?action=trees",
-     "get_folder": "http://filemanager.com?action=folder&id={id}",
-     "get_file": "http://filemanager.com?action=file",
-     "uploads" : "http://filemanager.com?action=uploads"
+     "get_data": "http://filemanager.com:8080?action=init",
+     "get_trees": "http://filemanager.com:8080?action=trees",
+     "get_folder": "http://filemanager.com:8080?action=folder&id={id}",
+     "get_file": "http://filemanager.com:8080?action=file",
+     "uploads" : "http://filemanager.com:8080?action=uploads"
    },
    "database": {
      "is_demo": true,

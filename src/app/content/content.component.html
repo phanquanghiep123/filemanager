@@ -1,5 +1,5 @@
 <ul class="grid" id="main-items-container">
-  <li *ngFor="let item of LisTFile" class="main-item" [style.width]="WidthIem">
+  <li *ngFor="let item of app.CurrentFiles" class="main-item" [style.width]="WidthIem">
     <app-file [file]="item" (changFile)="OnchangeFile($event)"></app-file>
   </li>
 </ul>
@@ -171,6 +171,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
+        <app-breadcrumb [breadcrumbs]="app.breadcrumbs"></app-breadcrumb>
         <div class="input-group mb-3">
           <div class="input-group-prepend"><span class="input-group-text">Folder name</span></div>
           <input class="form-control" id="folder-name" type="text" required="required" maxlength="255" placeholder="Enter folder name">
@@ -183,12 +184,29 @@
     </div>
   </div>
 </div>
+<div id="myModalRemoveFile" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="text-center">
+          <div class="alert alert-warning" role="alert">
+            Do you want to delete the {{ file.name }} ?
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" (click)="RemoveFile()" class="btn btn-primary" id="add-folder-now">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
 <div id="myModalUpload" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
-        <app-breadcrumb [breadcrumbs]="app.breadcrumbs"></app-breadcrumb>   
-        <app-uploads (addItemContent) ="addItemContent($event)"></app-uploads>
+        <app-breadcrumb [breadcrumbs]="app.breadcrumbs"></app-breadcrumb>
+        <app-uploads (addItemContent)="addItemContent($event)"></app-uploads>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
