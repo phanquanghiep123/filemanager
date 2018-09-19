@@ -1,0 +1,9 @@
+<div class="fix-menu-right">
+  <ul *ngIf="file">
+    <li><a (click)="MenuView()"> <i class="mdi mdi-eye-outline"></i> View</a></li>
+    <li><a (click)="MenuEdit()"><i class="mdi mdi-eyedropper-variant"></i> Edit</a></li>
+    <li><a (click)="MenuDelete()"><i class="mdi mdi-delete"></i> Delete</a></li>
+    <li *ngIf="file.extension == 'folder' ||  file.extension == 'root'"><a (click)="MenuAddFolder()"><i class="mdi mdi-folder-plus"></i> Add folder</a></li>
+    <li *ngIf="file.extension == 'folder' ||  file.extension == 'root'"><a (click)="MenuUploadsFile()"><i class="mdi mdi-file-plus"></i> Upload files</a></li>
+  </ul>
+</div>

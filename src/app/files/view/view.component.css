@@ -1,0 +1,5 @@
+.view-image{
+    max-height: -webkit-fill-available;
+    max-width: 100%;
+    margin: 0 auto;
+}

@@ -19,8 +19,9 @@ export class SidaberComponent implements OnInit {
   interval: any;
   UL: string = "";
   trees: Trees[];
-  breadcrumbsNew : Trees[] = [];
+  breadcrumbsNew: Trees[] = [];
   TUL: any = this.Renderer.createElement("ul");
+  file: any;
   @ViewChild('viewTree') viewTree: ElementRef;
   @Input() breadcrumbs: Trees[];
   constructor(
@@ -45,7 +46,7 @@ export class SidaberComponent implements OnInit {
             root.id = 0;
             root.name = "Root";
             root.pid = -1;
-            root.extension="root";
+            root.extension = "root";
             var li = this.Renderer.createElement('li');
             this.Renderer.addClass(li, "li-node");
             this.Renderer.addClass(li, "none");
@@ -58,20 +59,29 @@ export class SidaberComponent implements OnInit {
             var text = this.Renderer.createText("Root");
             this.Renderer.appendChild(a, text);
             this.Renderer.listen(a, "click", $event => {
+              $event.stopPropagation();
+              $event.preventDefault();
               this.NodeClick(root, $event);
+              return false
             });
+            this.Renderer.listen(a, "contextmenu", $event => {
+              $event.stopPropagation();
+              $event.preventDefault();
+              this.MenuContext(root, $event);
+              return false;
+            })
             this.Renderer.addClass(li, "li-node");
             this.Renderer.addClass(li, 'root');
             this.Renderer.addClass(li, 'hidden');
-            this.Renderer.addClass(li, root.extension); 
+            this.Renderer.addClass(li, root.extension);
             this.Renderer.appendChild(li, a);
-            this.Renderer.appendChild(this.TUL,li);
+            this.Renderer.appendChild(this.TUL, li);
             this.Renderer.appendChild(this.viewTree.nativeElement, this.TUL);
+            this.app.is_loading = false;
           }
         });
         clearInterval(this.interval);
       }
-
     }, 10);
   }
   private Create_Tree2($datas: Trees[], $pid = 0) {
@@ -95,6 +105,15 @@ export class SidaberComponent implements OnInit {
           this.Renderer.appendChild(a, text);
           this.Renderer.listen(a, "click", $event => {
             this.NodeClick(element, $event);
+            $event.stopPropagation();
+            $event.preventDefault();
+            return false;
+          });
+          this.Renderer.listen(a, "contextmenu", $event => {
+            $event.stopPropagation();
+            $event.preventDefault();
+            this.MenuContext(element, $event);
+            return false;
           })
           this.Renderer.addClass(li, "li-node");
           this.Renderer.addClass(li, element.extension);
@@ -107,7 +126,9 @@ export class SidaberComponent implements OnInit {
     return ul;
   }
   NodeClick($element: Trees, event) {
-    if ($element.extension == "folder") {
+    if ($element.extension == "folder" || $element.extension == "root") {
+      this.app.CurrentFiles = [];
+      this.MainComponent.Content.is_loading = true;
       this.app.checkall = false;
       var url_get_folder = this.app.config.BASE['get_folder'];
       url_get_folder = url_get_folder.replace("{id}", $element.id);
@@ -117,7 +138,7 @@ export class SidaberComponent implements OnInit {
       this.MediaService.getFolder(url_get_folder).subscribe(data => {
         this.Service = data;
         this.medias = this.Service.response;
-        this.app.CurrentFiles = this.medias; 
+        this.app.CurrentFiles = this.medias;
         if (indexOfClass1 == -1) {
           try {
             event.target.parentElement.querySelector("ul.ul-node").remove();
@@ -137,11 +158,12 @@ export class SidaberComponent implements OnInit {
             event.target.parentElement.classList.remove("open");
           }
         }
+        this.MainComponent.Content.is_loading = false;
       });
       this.GetPathURL(event.target);
       var count = this.breadcrumbsNew.length - 1;
       this.app.breadcrumbs = [];
-      for(var i = count ; i >= 0 ; i--){
+      for (var i = count; i >= 0; i--) {
         this.app.breadcrumbs.push(this.breadcrumbsNew[i]);
       }
       this.breadcrumbsNew = [];
@@ -150,20 +172,36 @@ export class SidaberComponent implements OnInit {
     }
     return false;
   }
-  
+
   GetPathURL(node) {
     try {
       var data = node.getAttribute('data-node');
       data = JSON.parse(data);
       this.breadcrumbsNew.push(data);
-      if(data.pid != '-1'){
+      if (data.pid != '-1') {
         var a = document.getElementsByClassName("a-node-" + data.pid)[0];
         this.GetPathURL(a);
       }
-      
     } catch (e) {
       console.log(e);
     }
-    
+  }
+  MenuContext($element: any, $event) {
+    this.app.CurrentFolder = $element;
+    var left = ($event.x);
+    var top = ($event.y);
+    this.file = $element;
+    $(".fix-menu-right").css({
+      left: left + "px",
+      top: top + "px"
+    }).addClass("open");
+    this.GetPathURL($event.target);
+    var count = this.breadcrumbsNew.length - 1;
+    this.app.breadcrumbs = [];
+    for (var i = count; i >= 0; i--) {
+      this.app.breadcrumbs.push(this.breadcrumbsNew[i]);
+    }
+    this.breadcrumbsNew = [];
+    this.app.CurrentFolder = $element;
   }
 }

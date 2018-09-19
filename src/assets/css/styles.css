@@ -1,7 +1,9 @@
 .left {
   float: left;
 }
-
+.relative{
+  position: relative;
+}
 .height-100 {
   height: 100%;
 }
@@ -371,7 +373,7 @@ img {
   max-width: 100%;
 }
 
-#myModalViewFile .close {
+#myModalEditFile .close {
   position: absolute;
   right: 6px;
   top: -2px;
@@ -379,11 +381,11 @@ img {
   z-index: 99;
 }
 
-#myModalViewFile .modal-content {
+#myModalEditFile .modal-content {
   height: calc(100vh - 56px);
 }
 
-#myModalViewFile .data-box {
+#myModalEditFile .data-box {
   position: absolute;
   bottom: 0;
   left: 15px;
@@ -394,11 +396,11 @@ img {
   height: 100%;
 }
 
-#myModalViewFile img {
+#myModalEditFile img {
   max-height: 100%;
 }
 
-#myModalViewFile .img-container>img {
+#myModalEditFile .img-container>img {
   max-width: 100%;
   max-height: 100%;
 }
@@ -868,4 +870,65 @@ img {
 .onoff-allow.disbaleaction{
   cursor: not-allowed !important;
   opacity: .5;
+}
+.app-cropper{
+  position: relative;
+}
+#myModalEditFile .modal-body{
+  overflow: hidden;
+}
+
+
+#myModalViewFile .close {
+  position: absolute;
+  right: 6px;
+  top: -2px;
+  font-size: 30px;
+  z-index: 99;
+}
+
+#myModalViewFile .modal-content {
+  height: calc(100vh - 56px);
+}
+
+#myModalViewFile .data-box {
+  position: absolute;
+  bottom: 0;
+  left: 15px;
+  right: 15px;
+}
+
+.img-container {
+  height: 100%;
+}
+
+#myModalViewFile img {
+  max-height: 100%;
+}
+
+#myModalViewFile .img-container>img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+#myModalViewFile .modal-body{
+  overflow: hidden;
+}
+#myModalViewFile .img-container{
+  text-align: center;
+  display: -webkit-inline-box;
+  width: 100%;
+  vertical-align: middle;
+  text-align: -webkit-center;
+  margin: 0 auto;
+}
+#myModalViewFile .img-container img{
+  max-width: 100%;
+  max-height: 100%;
+  vertical-align: middle;
+  display: table-cell;
+  margin: 0 auto;
+  object-fit: contain;
+  text-align: center;
+  object-position: center;
 }

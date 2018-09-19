@@ -3,10 +3,10 @@
     <app-file [file]="item" (changFile)="OnchangeFile($event)"></app-file>
   </li>
 </ul>
-<div id="myModalViewFile" class="modal fade" role="dialog">
+<div id="myModalEditFile" class="modal fade myModalfull" role="dialog">
   <div class="modal-dialog full-custom">
     <!-- Modal content-->
-    <div class="modal-content" *ngIf="file">
+    <div class="modal-content">
       <form id="save-edit" (submit)="cropperData()" method="post" class="height-100" enctype="multipart/form-data">
         <input type="hidden" id="base64image" name="base64image">
         <!-- Modal content-->
@@ -185,11 +185,11 @@
   </div>
 </div>
 <div id="myModalRemoveFile" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+  <div class="modal-dialog" >
     <div class="modal-content">
       <div class="modal-body">
         <div class="text-center">
-          <div class="alert alert-warning" role="alert">
+          <div *ngIf="file" class="alert alert-warning" role="alert">
             Do you want to delete the {{ file.name }} ?
           </div>
         </div>
@@ -198,6 +198,70 @@
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" (click)="RemoveFile()" class="btn btn-primary" id="add-folder-now">Ok</button>
       </div>
+    </div>
+  </div>
+</div>
+<div id="myModalViewFile" class="modal fade myModalfull" role="dialog">
+  <div class="modal-dialog full-custom">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <form id="save-edit" (submit)="cropperData()" method="post" class="height-100" enctype="multipart/form-data">
+        <input type="hidden" id="base64image" name="base64image">
+        <!-- Modal content-->
+        <div class="modal-body height-100">
+          <div id="content-edit-media" class="height-100">
+            <div class="row height-100">
+              <div class="col-md-9 height-100">
+                <div class="img-container relative">
+                  <app-view [file]="file"></app-view>
+                </div>
+              </div>
+              <div class="col-md-3 height-100">
+                <!-- <h3>Data:</h3> -->
+                <div class="data-box">
+                  <div class="docs-data">
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Width</span>
+                      </div>
+                      <input type="text" value="720" class="form-control" id="dataWidth" placeholder="width" readonly="">
+                      <div class="input-group-append">
+                        <span class="input-group-text">px</span>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Height</span>
+                      </div>
+                      <input type="text" value="1280" class="form-control" id="dataHeight" placeholder="height" readonly="">
+                      <div class="input-group-append">
+                        <span class="input-group-text">px</span>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Path</span>
+                      </div>
+                      <input type="text" class="form-control" value="/uploads/c81e728d9d4c2f636f067f89cc14862c/5b909ea9bd698.jpg"
+                        readonly="">
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Name</span>
+                      </div>
+                      <input type="text" class="form-control" id="media-name" value="78411DF0-84AE-4BA5-A15E-EAFD8CF7B19C.jpg"
+                        placeholder="Enter media name" readonly>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -214,3 +278,4 @@
     </div>
   </div>
 </div>
+<app-loading [is_loading] ="is_loading" ></app-loading>

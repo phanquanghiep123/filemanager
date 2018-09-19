@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Config } from './models/config';
 import { Trees } from './models/trees';
 import { Media } from './models/media';
+import { HeaderComponent } from './header/header.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,6 +10,7 @@ import { Media } from './models/media';
 })
 export class AppComponent {
   title = 'filemanager';
+  is_loading : boolean = true;
   config: Config;
   interval : any;
   breadcrumbs : Trees[] = [];
@@ -18,10 +20,10 @@ export class AppComponent {
   MySeclect    : Media[] = [];
   ListChoose = [];
   actions = [
-    { name: "back folder", "icon": "mdi-subdirectory-arrow-left",class : "on-allow" },
-    { name: "next folder", "icon": "mdi-subdirectory-arrow-right" ,class : "on-allow" },
-    { name: "new folder", "icon": "mdi-folder-plus" ,class : "on-allow" },   
-    { name: "new file", "icon": "mdi-file-plus" ,class : "on-allow"},
+    { name: "back folder", "icon": "mdi-subdirectory-arrow-left",class : "on-allow back" },
+    { name: "next folder", "icon": "mdi-subdirectory-arrow-right" ,class : "on-allow next" },
+    { name: "new folder", "icon": "mdi-folder-plus" ,class : "on-allow new-folder" },   
+    { name: "new file", "icon": "mdi-file-plus" ,class : "on-allow new-file"},
     { name: "all folder", "icon": "mdi-clipboard-check-outline" ,class : "on-allow" },
     { name: "copy file", "icon": "mdi-content-copy", class : "off-allow" },
     { name: "cut file", "icon": "mdi-content-cut" ,class : "off-allow" },
@@ -30,7 +32,9 @@ export class AppComponent {
   ];
   action = {};
   checkall = false;
-  constructor(public Config: Config) {
+  constructor(
+    public Config: Config
+  ) {
     this.interval = setInterval (() => {
       this.config = this.Config.getConfig();
       var string = '';
@@ -87,4 +91,5 @@ export class AppComponent {
     this.breadcrumbs.push(root);
     this.CurrentFolder = root;
   }
+   
 }

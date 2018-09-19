@@ -15,6 +15,9 @@ import { ItemComponent } from './files/item/item.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import {Input } from '@angular/core';
 import { CropperComponent } from './cropper/cropper.component';
+import { LoadingComponent } from './loading/loading.component';
+import { ViewComponent } from './files/view/view.component';
+import { MenuRightComponent } from './files/menu-right/menu-right.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +31,9 @@ import { CropperComponent } from './cropper/cropper.component';
     ItemComponent,
     BreadcrumbComponent,
     CropperComponent,
+    LoadingComponent,
+    ViewComponent,
+    MenuRightComponent,
 
   ],
   imports: [
@@ -36,7 +42,17 @@ import { CropperComponent } from './cropper/cropper.component';
     AppRoutingModule,
     
   ],
-  providers: [Config,HttpClient,SidaberComponent ,ContentComponent,BreadcrumbComponent,Input],
+  providers: [
+    Config,
+    HttpClient,
+    SidaberComponent ,
+    MainComponent,
+    UploadsComponent,
+    HeaderComponent,
+    ContentComponent,
+    BreadcrumbComponent,
+    Input
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

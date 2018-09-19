@@ -1,0 +1,33 @@
+.fix-menu-right {
+    position: fixed;
+    display: none;
+    top: 0;
+    right:  auto;
+    width: 160px;
+    z-index: 9999;
+}
+.fix-menu-right.open {
+    display: block;
+}
+.fix-menu-right ul {
+    background: #ffffff;
+    border:  1px solid #cccccc;
+    padding:  5px;
+    border-radius:  4px;
+}
+.fix-menu-right ul li {
+    list-style:  none;
+    margin-bottom: 5px;
+    border-bottom:  1px solid #cccccc;
+}
+.fix-menu-right ul li:last-child{
+    margin-bottom: 0;
+    border-bottom:  none;
+}
+.fix-menu-right ul li a {
+    cursor:  pointer;
+}
+
+.fix-menu-right ul li:hover{
+    background:  #f1f1f1;
+}

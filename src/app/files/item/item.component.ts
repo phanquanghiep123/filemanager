@@ -36,8 +36,13 @@ export class ItemComponent implements OnInit {
         }
         return false;
     }
-    viewDetail() {
+    ViewDetail() {
         this.changFile.emit(this.file);
+        $("#myModalViewFile").modal();
+    }
+    EditFile () {
+        this.changFile.emit(this.file);
+        $("#myModalEditFile").modal();
     }
     OnChooseFile() {
         this.file.select = !this.file.select;

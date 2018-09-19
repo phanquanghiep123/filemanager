@@ -16,9 +16,9 @@
       <h4> {{file.name}}</h4>
     </div>
     <div class="action_file {{file.extension}}">
-      <a (click)="viewDetail()" href="javascript:;"><i class="mdi mdi-eyedropper-variant"></i></a>
-      <a (click)="EditFile()" href="javascript:;"><i class="mdi mdi-eye-outline"></i></a>
-      <a (click)="DeleteFile()" href="javascript:;"><i class="mdi mdi-delete"></i></a>
+      <a id="file-{{file.id}}" class="edit-{{file.id}}" (click)="EditFile(file)" href="javascript:;"><i class="mdi mdi-eyedropper-variant"></i></a>
+      <a id="file-{{file.id}}" class="view-{{file.id}}" (click)="ViewDetail(file)" href="javascript:;"><i class="mdi mdi-eye-outline"></i></a>
+      <a id="file-{{file.id}}" class="delete-{{file.id}}" (click)="DeleteFile(file)" href="javascript:;"><i class="mdi mdi-delete"></i></a>
     </div>
   </div>
 </div>

@@ -27,11 +27,6 @@ export class Config {
        
     }
     getConfig() {
-        for(var i = 1000000000000000000000000 ; i > 0 ; i--){
-            if(this.NEXT == true) break;
-            console.log(i);
-            console.log(this.NEXT);
-        }
         return this;
     }
  

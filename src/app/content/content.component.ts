@@ -13,6 +13,7 @@ export class ContentComponent implements OnInit {
   myDropzone : any;
   WidthIem = 100 / this.Column + "%";
   public_path : string = "";
+  is_loading : boolean = false;
   @ViewChild(CropperComponent) Cropper : CropperComponent;
   constructor(
     private app : AppComponent

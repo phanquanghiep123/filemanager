@@ -1,1 +1,2 @@
-<img id="cropper-image" [src] ="'http://weddingguu.com' + file.path">
+<app-loading [is_loading] ="is_loading" ></app-loading>
+<img id="cropper-image" [src]="(file) ? file.public_path : '#'">

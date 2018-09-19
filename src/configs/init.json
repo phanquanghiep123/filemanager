@@ -1,6 +1,6 @@
  {
    "base": {
-     "public_path": "http://weddingguu.com",
+     "public_path": "http://filemanager.com:8080",
      "get_data": "http://filemanager.com:8080?action=init",
      "get_trees": "http://filemanager.com:8080?action=trees",
      "get_folder": "http://filemanager.com:8080?action=folder&id={id}",

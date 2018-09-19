@@ -10,14 +10,14 @@ declare var Cropper: any;
 export class CropperComponent implements OnInit {
   @Input() file: Media;
   cropper;
+  is_loading: boolean = false;
   constructor() {
 
   }
-  
+
   ngOnInit() {
-    
     var is_round = 0;
-    var $modal = $('#myModalViewFile');
+    var $modal = $('#myModalEditFile');
     var actions = $('#actions');
     var image = document.getElementById('cropper-image');
     var dataHeight = $('#dataHeight');
@@ -40,67 +40,69 @@ export class CropperComponent implements OnInit {
       crop: function (e) {
         var data = e.detail;
         dataHeight.val(Math.round(data.height));
-        dataWidth.val (Math.round(data.width));
-       
+        dataWidth.val(Math.round(data.width));
+
       },
       zoom: function (e) {
         console.log(e.type, e.detail.ratio);
       },
-     
-      
+
+
     };
     $modal.on('shown.bs.modal', () => {
+      this.is_loading = true;
       var img = new Image();
-      img.onload =  () => {
-        this.cropper = new Cropper(image, options);
-        this.cropper.round = function () {
-          $(".cropper-container").addClass("round");
-          $(".img-preview").addClass("round");
-          this.setAspectRatio (1);
-          is_round = 1;
-        }
-        this.cropper.square = function () {
-          $(".cropper-container").removeClass("round");
-          $(".img-preview").removeClass("round");
-          this.setAspectRatio(1);
-          is_round = 0;
-        }
-        this.cropper.auto = function () {
-          $(".cropper-container").removeClass("round");
-          $(".img-preview").removeClass("round");
-          this.setAspectRatio(false);
-          is_round = 0;
-        }
-        this.cropper.setAspectRatio21 = function () {
-          $(".cropper-container").removeClass("round");
-          $(".img-preview").removeClass("round");
-          this.setAspectRatio(2/1);
-          is_round = 0;
-        }
-        this.cropper.getRoundedCanvas = function(sourceCanvas) {
-          var canvas = document.createElement('canvas');
-          var context = canvas.getContext('2d');
-          var width = sourceCanvas.width;
-          var height = sourceCanvas.height;
-          canvas.width = width;
-          canvas.height = height;
-          context.imageSmoothingEnabled = true;
-          context.drawImage(sourceCanvas, 0, 0, width, height);
-          context.globalCompositeOperation = 'destination-in';
-          context.beginPath();
-          context.arc(width / 2, height / 2, Math.min(width, height) / 2, 0, 2 * Math.PI, true);
-          context.fill();
-          return canvas;
-        }
-        this.cropper.getCanvasC = function(){
-          var croppedCanvas = this.getCroppedCanvas();
-          if(is_round == 1){
-            croppedCanvas = this.getRoundedCanvas(croppedCanvas);
-          }
-          return croppedCanvas;
-        }
+      image.addEventListener('ready', () => {
+        this.is_loading = false;
+      });
+      this.cropper = new Cropper(image, options);
+      this.cropper.round = function () {
+        $(".cropper-container").addClass("round");
+        $(".img-preview").addClass("round");
+        this.setAspectRatio(1);
+        is_round = 1;
       }
-      img.src = 'http://weddingguu.com' + this.file.path;
+      this.cropper.square = function () {
+        $(".cropper-container").removeClass("round");
+        $(".img-preview").removeClass("round");
+        this.setAspectRatio(1);
+        is_round = 0;
+      }
+      this.cropper.auto = function () {
+        $(".cropper-container").removeClass("round");
+        $(".img-preview").removeClass("round");
+        this.setAspectRatio(false);
+        is_round = 0;
+      }
+      this.cropper.setAspectRatio21 = function () {
+        $(".cropper-container").removeClass("round");
+        $(".img-preview").removeClass("round");
+        this.setAspectRatio(2 / 1);
+        is_round = 0;
+      }
+      this.cropper.getRoundedCanvas = function (sourceCanvas) {
+        var canvas = document.createElement('canvas');
+        var context = canvas.getContext('2d');
+        var width = sourceCanvas.width;
+        var height = sourceCanvas.height;
+        canvas.width = width;
+        canvas.height = height;
+        context.imageSmoothingEnabled = true;
+        context.drawImage(sourceCanvas, 0, 0, width, height);
+        context.globalCompositeOperation = 'destination-in';
+        context.beginPath();
+        context.arc(width / 2, height / 2, Math.min(width, height) / 2, 0, 2 * Math.PI, true);
+        context.fill();
+        return canvas;
+      }
+      this.cropper.getCanvasC = function () {
+        var croppedCanvas = this.getCroppedCanvas();
+        if (is_round == 1) {
+          croppedCanvas = this.getRoundedCanvas(croppedCanvas);
+        }
+        return croppedCanvas;
+      }
+      img.src = this.file.public_path;
     }).on('hidden.bs.modal', () => {
       this.cropper.destroy();
       this.cropper = null;
@@ -110,16 +112,79 @@ export class CropperComponent implements OnInit {
       var option = $(this).attr("data-option");
       var method = $(this).attr("data-method");
       var second_option = $(this).attr("data-second-option");
-      if(option == null)
-      _seff.cropper[method]();
+      if (option == null)
+        _seff.cropper[method]();
       else if (second_option != null)
-      _seff.cropper[method](option, second_option);
+        _seff.cropper[method](option, second_option);
       else
-      _seff.cropper[method](option);
+        _seff.cropper[method](option);
+    });
+    window.addEventListener('resize', (event) => {
+      if(this.cropper){
+        this.cropper.destroy();
+        this.cropper = null;
+      }else{
+        return true;
+      }
+      this.is_loading = true;
+      var img = new Image();
+      image.addEventListener('ready', () => {
+        this.is_loading = false;
+      });
+      $("#myModalEditFile .cropper-container").removeClass("round");
+      $("#myModalEditFile .img-preview").removeClass("round");
+      this.cropper = new Cropper(image, options);
+      this.cropper.round = function () {
+        $("#myModalEditFile .cropper-container").addClass("round");
+        $("#myModalEditFile .img-preview").addClass("round");
+        this.setAspectRatio(1);
+        is_round = 1;
+      }
+      this.cropper.square = function () {
+        $("#myModalEditFile .cropper-container").removeClass("round");
+        $("#myModalEditFile .img-preview").removeClass("round");
+        this.setAspectRatio(1);
+        is_round = 0;
+      }
+      this.cropper.auto = function () {
+        $("#myModalEditFile .cropper-container").removeClass("round");
+        $("#myModalEditFile .img-preview").removeClass("round");
+        this.setAspectRatio(false);
+        is_round = 0;
+      }
+      this.cropper.setAspectRatio21 = function () {
+        $("#myModalEditFile .cropper-container").removeClass("round");
+        $("#myModalEditFile .img-preview").removeClass("round");
+        this.setAspectRatio(2 / 1);
+        is_round = 0;
+      }
+      this.cropper.getRoundedCanvas = function (sourceCanvas) {
+        var canvas = document.createElement('canvas');
+        var context = canvas.getContext('2d');
+        var width = sourceCanvas.width;
+        var height = sourceCanvas.height;
+        canvas.width = width;
+        canvas.height = height;
+        context.imageSmoothingEnabled = true;
+        context.drawImage(sourceCanvas, 0, 0, width, height);
+        context.globalCompositeOperation = 'destination-in';
+        context.beginPath();
+        context.arc(width / 2, height / 2, Math.min(width, height) / 2, 0, 2 * Math.PI, true);
+        context.fill();
+        return canvas;
+      }
+      this.cropper.getCanvasC = function () {
+        var croppedCanvas = this.getCroppedCanvas();
+        if (is_round == 1) {
+          croppedCanvas = this.getRoundedCanvas(croppedCanvas);
+        }
+        return croppedCanvas;
+      }
+      img.src = this.file.public_path;
     });
   }
   cropperDataFile() {
-      console.log(this.cropper);
+    console.log(this.cropper);
   }
 
 }
