@@ -1,7 +1,9 @@
-import { Component, OnInit, Injectable,ViewChild,Input} from '@angular/core';
+import { Component, OnInit, Injectable,ViewChild,Input,Output,EventEmitter} from '@angular/core';
 import { CropperComponent } from '../cropper/cropper.component';
 import { AppComponent } from '../app.component';
 import { Media } from '../models/media';
+import { Folder } from '../models/folder';
+import { FolderService } from '../services/folder.service';
 declare var $: any;
 @Component({
   selector: 'app-content',
@@ -13,9 +15,12 @@ export class ContentComponent implements OnInit {
   WidthIem = 100 / this.Column + "%";
   public_path : string = "";
   is_loading : boolean = false;
+  folder : Folder;
   @ViewChild(CropperComponent) Cropper : CropperComponent;
+  @Output () addFolder = new EventEmitter();
   constructor(
-    private app : AppComponent
+    private app : AppComponent,
+    private folderService : FolderService
   ) { 
     
   }
@@ -70,5 +75,10 @@ export class ContentComponent implements OnInit {
     setTimeout(() => {
       this.public_path = this.app.config.BASE['public_path'];
     },1000);
+  }
+  AddNewFolder () {
+    this.addFolder.emit( this.app.folder);
+    this.folderService.add(this.app.config.BASE["add_folder"],this.app.folder).subscribe((data) => {
+    });
   }
 }

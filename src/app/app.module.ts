@@ -18,6 +18,7 @@ import { CropperComponent } from './cropper/cropper.component';
 import { LoadingComponent } from './loading/loading.component';
 import { ViewComponent } from './files/view/view.component';
 import { MenuRightComponent } from './files/menu-right/menu-right.component';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +41,7 @@ import { MenuRightComponent } from './files/menu-right/menu-right.component';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    FormsModule
     
   ],
   providers: [

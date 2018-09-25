@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Trees } from '../models/trees';
 import { AppComponent } from '../app.component';
+import { Folder } from '../models/folder';
 declare var $: any;
 @Component({
   selector: 'app-header',
@@ -29,6 +30,7 @@ export class HeaderComponent implements OnInit {
     }
     if ($action.class == "off-allow" && this.app.MySeclect.length <= 0) return false;
     if ($action.name == "new folder") {
+      this.app.folder = new Folder();
       $("#myModalAddFolder").modal();
     } else if ($action.name == 'new file') {
       $("#myModalUpload").modal();

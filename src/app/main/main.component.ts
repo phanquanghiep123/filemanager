@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ContentComponent } from '../content/content.component';
+import { SidaberComponent } from '../sidaber/sidaber.component';
 import { Trees } from '../models/trees';
 import { AppComponent } from '../app.component';
 @Component({
@@ -9,6 +10,7 @@ import { AppComponent } from '../app.component';
 })
 export class MainComponent implements OnInit {
   @ViewChild (ContentComponent) Content: ContentComponent;
+  @ViewChild (SidaberComponent) Sidaber: SidaberComponent;
   file : any;
   breadcrumbs : Trees[];
   constructor(
@@ -19,5 +21,10 @@ export class MainComponent implements OnInit {
     this.file = this.app.file;
     this.breadcrumbs = this.app.breadcrumbs;
   }
-
+  loadingContent ($on = true){
+    this.Content.is_loading = $on;
+  }
+  addFolder ($folder : any) {
+    this.Sidaber.createNode(this.app.CurrentFolder,$folder);
+  }
 }

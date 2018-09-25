@@ -1,10 +1,10 @@
 <div class="container-full">
   <div class="main-page">
     <div class="sidebar-box left">
-      <app-sidaber (onOpen)="onOpenChange($event)" [breadcrumbs] ="breadcrumbs"></app-sidaber>
+      <app-sidaber (loadingContent)="loadingContent($event)" (onOpen)="onOpenChange($event)" [breadcrumbs] ="breadcrumbs"></app-sidaber>
     </div>
     <div class="content-box left relative">
-      <app-content></app-content>
+      <app-content (addFolder) ="addFolder($event)"></app-content>
     </div>
     
   </div>

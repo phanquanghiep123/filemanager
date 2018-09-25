@@ -1,10 +1,9 @@
-import { Component, OnInit, ElementRef, ViewChild, Renderer2, Input } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Renderer2, Input, Output, EventEmitter } from '@angular/core';
 import { TreesService } from '../services/trees.service';
 import { MediaService } from '../services/media.service';
 import { Service } from '../models/service';
 import { Trees } from '../models/trees';
 import { AppComponent } from '../app.component';
-import { MainComponent } from '../main/main.component';
 import { Media } from '../models/media';
 declare var $: any;
 @Component({
@@ -13,6 +12,7 @@ declare var $: any;
 })
 export class SidaberComponent implements OnInit {
   @Input() file: any;
+  @Output() loadingContent = new EventEmitter();
   @ViewChild('viewTree') viewTree: ElementRef;
   @Input() breadcrumbs: Trees[];
   jsTree: any;
@@ -27,9 +27,9 @@ export class SidaberComponent implements OnInit {
   constructor(
     private TreesService: TreesService,
     private app: AppComponent,
-    private MainComponent: MainComponent,
     private Renderer: Renderer2,
     private MediaService: MediaService,
+    private ElementRef: ElementRef
   ) {
   }
   ngOnInit() {
@@ -49,6 +49,7 @@ export class SidaberComponent implements OnInit {
             root.extension = "root";
             var li = this.Renderer.createElement('li');
             this.Renderer.addClass(li, "li-node");
+            this.Renderer.addClass(li, 'li-node-0');
             this.Renderer.addClass(li, "none");
             var a = this.Renderer.createElement('a');
             this.Renderer.addClass(a, 'a-node');
@@ -84,15 +85,18 @@ export class SidaberComponent implements OnInit {
       }
     }, 10);
   }
-  private Create_Tree2($datas: Trees[], $pid = 0) {
+  public Create_Tree2($datas: Trees[], $pid = 0) {
     var stringClass = $pid == 0 ? 'ul-root' : 'ul-node';
     var ul = this.Renderer.createElement("ul");
     this.Renderer.addClass(ul, stringClass);
+    this.Renderer.addClass(ul,"ul-node-" + $pid);
     if ($datas != null && $datas.length > 0) {
       $datas.forEach((element, key) => {
         if (element.pid == $pid) {
           $datas.slice(key, 1);
           var li = this.Renderer.createElement('li');
+          this.Renderer.addClass(li, 'li-node');
+          this.Renderer.addClass(li, 'li-node-' + element.id);
           var a = this.Renderer.createElement('a');
           this.Renderer.addClass(a, 'a-node');
           this.Renderer.addClass(a, 'a-node-' + element.id);
@@ -125,10 +129,45 @@ export class SidaberComponent implements OnInit {
     }
     return ul;
   }
+  public createNode($nodeP: any, $nodeC: any) {
+    
+    var li = this.Renderer.createElement('li');
+    this.Renderer.addClass(li, "li-node");
+    this.Renderer.addClass(li, "li-node-" + $nodeC.id);
+    var a = this.Renderer.createElement('a');
+    this.Renderer.addClass(a, 'a-node');
+    this.Renderer.addClass(a, 'a-node-' + $nodeC.id);
+    this.Renderer.setAttribute(a, 'href', 'javascript:;');
+    this.Renderer.setAttribute(a, 'data-node', JSON.stringify($nodeC));
+    this.Renderer.setAttribute(a, 'data-id', $nodeC.id);
+    var text = this.Renderer.createText($nodeC.name);
+    this.Renderer.appendChild(a, text);
+    this.Renderer.listen(a, "click", $event => {
+      $event.stopPropagation();
+      $event.preventDefault();
+      this.NodeClick($nodeC, $event);
+      return false
+    });
+    this.Renderer.listen(a, "contextmenu", $event => {
+      $event.stopPropagation();
+      $event.preventDefault();
+      this.MenuContext($nodeC, $event);
+      return false;
+    })
+    this.Renderer.addClass(li, "li-node");
+    this.Renderer.addClass(li, $nodeC.extension);
+    this.Renderer.appendChild(li, a);
+    var ul = this.Renderer.createElement("ul");
+    this.Renderer.addClass(ul,"ul-node");
+    this.Renderer.addClass(ul,"ul-node-" + $nodeC.id);
+    this.Renderer.appendChild(li, ul);
+    var RootP = document.getElementsByClassName("ul-node-"+$nodeP.id);
+    this.Renderer.appendChild(RootP[0], li);
+  }
   NodeClick($element: any, event) {
     if ($element.extension == "folder" || $element.extension == "root") {
       this.app.CurrentFiles = [];
-      this.MainComponent.Content.is_loading = true;
+      this.loadingContent.emit(true);
       this.app.checkall = false;
       var url_get_folder = this.app.config.BASE['get_folder'];
       url_get_folder = url_get_folder.replace("{id}", $element.id);
@@ -158,7 +197,7 @@ export class SidaberComponent implements OnInit {
             event.target.parentElement.classList.remove("open");
           }
         }
-        this.MainComponent.Content.is_loading = false;
+        this.loadingContent.emit(false);
       });
       this.GetPathURL(event.target);
       var count = this.breadcrumbsNew.length - 1;
@@ -194,7 +233,7 @@ export class SidaberComponent implements OnInit {
     try {
       var data = node.getAttribute('data-node');
       data = JSON.parse(data);
-      if(data.extension == "folder" || data.extension == "root"){
+      if (data.extension == "folder" || data.extension == "root") {
         this.breadcrumbsNew.push(data);
       }
       if (data.pid != '-1') {

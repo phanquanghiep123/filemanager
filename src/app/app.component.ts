@@ -2,14 +2,16 @@ import { Component } from '@angular/core';
 import { Config } from './models/config';
 import { Trees } from './models/trees';
 import { Media } from './models/media';
-import { HeaderComponent } from './header/header.component';
+import { Folder } from './models/folder';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+ 
   title = 'filemanager';
+  folder : Folder;
   is_loading : boolean = true;
   file : Media;
   config: Config;
