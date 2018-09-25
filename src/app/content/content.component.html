@@ -3,11 +3,11 @@
     <app-file [file]="item" (changFile)="OnchangeFile($event)"></app-file>
   </li>
 </ul>
-<div id="myModalEditFile" class="modal fade myModalfull" role="dialog">
+<div id="myModalEditImage" class="modal fade myModalfull" role="dialog">
   <div class="modal-dialog full-custom">
     <!-- Modal content-->
     <div class="modal-content">
-      <form id="save-edit" (submit)="cropperData()" method="post" class="height-100" enctype="multipart/form-data">
+      <form id="save-edit" (submit)="SaveAndCropperData()" method="post" class="height-100" enctype="multipart/form-data">
         <input type="hidden" id="base64image" name="base64image">
         <!-- Modal content-->
         <div class="modal-body height-100">
@@ -15,9 +15,7 @@
             <div class="row height-100">
               <div class="col-md-9 height-100">
                 <div class="img-container">
-                  <app-cropper (cropperDataFile)="cropperDataFile($event)" [file]="file" class="app-cropper height-100 block"></app-cropper>
-                  <img id="image" src="http://weddingguu.com/uploads/c81e728d9d4c2f636f067f89cc14862c/5b909ea9bd698.jpg"
-                    alt="Picture" class="cropper-hidden">
+                  <app-cropper (cropperDataFile)="cropperDataFile($event)" [file]="app.file" class="app-cropper height-100 block"></app-cropper>
                 </div>
               </div>
               <div class="col-md-3 height-100">
@@ -124,7 +122,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text">Width</span>
                       </div>
-                      <input type="text" value="720" class="form-control" id="dataWidth" placeholder="width" readonly="">
+                      <input type="text" value="" class="form-control" id="dataWidth" placeholder="width" readonly="">
                       <div class="input-group-append">
                         <span class="input-group-text">px</span>
                       </div>
@@ -133,7 +131,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text">Height</span>
                       </div>
-                      <input type="text" value="1280" class="form-control" id="dataHeight" placeholder="height"
+                      <input type="text" value="" class="form-control" id="dataHeight" placeholder="height"
                         readonly="">
                       <div class="input-group-append">
                         <span class="input-group-text">px</span>
@@ -143,14 +141,98 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text">Path</span>
                       </div>
-                      <input type="text" class="form-control" value="/uploads/c81e728d9d4c2f636f067f89cc14862c/5b909ea9bd698.jpg"
-                        readonly="">
+                      <input *ngIf="app.file" type="text" class="form-control" value="{{app.file.public_path}}" readonly="">
                     </div>
                     <div class="input-group mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text">Name</span>
                       </div>
-                      <input type="text" class="form-control" id="media-name" value="78411DF0-84AE-4BA5-A15E-EAFD8CF7B19C.jpg"
+                      <input *ngIf="app.file" type="text" class="form-control" id="media-name" value="{{app.file.name}}"
+                        placeholder="Enter media name">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div id="myModalEditFile" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <form id="save-edit" (submit)="SaveFile()" method="post" class="height-100" enctype="multipart/form-data">
+        <input type="hidden" id="base64image" name="base64image">
+        <!-- Modal content-->
+        <div class="modal-body height-100">
+          <div id="content-edit-media" class="height-100">
+            <div class="row height-100">
+              <div class="col-md-12 height-100">
+                <!-- <h3>Data:</h3> -->
+                <div class="data-box">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Name</span>
+                    </div>
+                    <input *ngIf="app.file" type="text" class="form-control" id="media-name" value="{{app.file.name}}" placeholder="Enter media name">
+                  </div>
+                  <div lass="input-group mb-3" *ngIf="app.config && app.file">
+                    <audio *ngIf="app.config.EXT['audio'].indexOf(app.file.extension) != -1" [src]="app.file.public_path" controls style="width:100%"></audio>
+                    <video *ngIf="app.config.EXT['video'].indexOf(app.file.extension) != -1" [src]="app.file.public_path" controls style="width:100%"></video>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div id="myModalEditFileText" class="modal fade myModalfull" role="dialog">
+  <div class="modal-dialog full-custom">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <form id="save-edit" (submit)="SaveFile()" method="post" class="height-100" enctype="multipart/form-data">
+        <input type="hidden" id="base64image" name="base64image">
+        <!-- Modal content-->
+        <div class="modal-body height-100">
+          <div id="content-edit-media" class="height-100">
+            <div class="row height-100">
+              <div class="col-md-9 height-100">
+                <textarea class="height-100 form-control" id="content"></textarea>
+              </div>
+              <div class="col-md-3 height-100">
+                <!-- <h3>Data:</h3> -->
+                <div class="data-box">
+                  <div class="docs-preview clearfix">
+                    <div class="docs-preview clearfix">
+                      <div class="img-preview preview-lg"></div>
+                    </div>
+                  </div>
+                  <div class="docs-data">
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Path</span>
+                      </div>
+                      <input *ngIf="app.file" type="text" class="form-control" value="{{app.file.public_path}}" readonly="">
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Name</span>
+                      </div>
+                      <input *ngIf="app.file" type="text" class="form-control" id="media-name" value="{{app.file.name}}"
                         placeholder="Enter media name">
                     </div>
                     <div class="modal-footer">
@@ -189,8 +271,8 @@
     <div class="modal-content">
       <div class="modal-body">
         <div class="text-center">
-          <div *ngIf="file" class="alert alert-warning" role="alert">
-            Do you want to delete the {{ file.name }} ?
+          <div *ngIf="app.file" class="alert alert-warning" role="alert">
+            Do you want to delete the {{ app.file.name }} ?
           </div>
         </div>
       </div>
@@ -213,7 +295,7 @@
             <div class="row height-100">
               <div class="col-md-9 height-100">
                 <div class="img-container relative">
-                  <app-view [file]="file"></app-view>
+                  <app-view [file]="app.file"></app-view>
                 </div>
               </div>
               <div class="col-md-3 height-100">
@@ -278,4 +360,4 @@
     </div>
   </div>
 </div>
-<app-loading [is_loading] ="is_loading" ></app-loading>
+<app-loading [is_loading] ="is_loading"></app-loading>

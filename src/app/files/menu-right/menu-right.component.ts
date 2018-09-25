@@ -15,35 +15,44 @@ export class MenuRightComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    $("body").click(()=>{
+      $(".fix-menu-right").removeClass("open");
+    });
   }
   MenuView() {
-    let a = <HTMLElement>document.querySelector("#main-items-container .detail-item #file-" + this.file.id + ".view-" + this.file.id);
-    a.click();
+    $("#myModalViewFile").modal();
     $(".fix-menu-right").removeClass("open");
     return false;
   }
   MenuEdit() {
-    let a = <HTMLElement>document.querySelector("#main-items-container .detail-item #file-" + this.file.id + ".edit-" + this.file.id);
-    a.click();
-    $(".fix-menu-right").removeClass("open");
-    return false;
+    if(this.file.is_image)
+        $("#myModalEditImage").modal();
+    else if(this.app.config.EXT['text'].indexOf(this.app.file.extension) !== -1){
+        $.ajax(
+            {
+                url : this.app.file.public_path,
+                success : function(data){
+                    $("#myModalEditFileText").find("#content").val(data);
+                    $("#myModalEditFileText").modal(); 
+                }
+            }
+        )
+    }
+    else
+        $("#myModalEditFile").modal();
   }
   MenuDelete() {
-    let a = <HTMLElement>document.querySelector("#main-items-container .detail-item #file-" + this.file.id + ".delete-" + this.file.id);
-    a.click();
+    $("#myModalRemoveFile").modal();
     $(".fix-menu-right").removeClass("open");
     return false;
   }
   MenuAddFolder(){
-    let a = <HTMLElement>document.querySelector("#header-page .navbar-default li a.new-folder");
-    a.click();
+    $("#myModalAddFolder").modal();
     $(".fix-menu-right").removeClass("open");
     return false;
   }
   MenuUploadsFile(){
-    let a = <HTMLElement>document.querySelector("#header-page .navbar-default li a.new-file");
-    a.click();
+    $("#myModalUpload").modal();
     $(".fix-menu-right").removeClass("open");
     return false;
   }

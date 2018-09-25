@@ -6,6 +6,7 @@ import { Trees } from '../models/trees';
 })
 export class FooterComponent implements OnInit {
   @Input () breadcrumbs:Trees[]; 
+  @Input () file : any;
   constructor() { }
 
   ngOnInit() {

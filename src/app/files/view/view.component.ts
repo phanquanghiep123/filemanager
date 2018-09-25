@@ -7,7 +7,7 @@ declare var $: any;
   styleUrls: ['./view.component.css']
 })
 export class ViewComponent implements OnInit {
-  @Input() file: Media;
+  @Input() file: any;
   is_loading: boolean = false;
   constructor() { }
   ngOnInit() {
@@ -18,7 +18,7 @@ export class ViewComponent implements OnInit {
       newImg.onload = ((img) => {
         this.is_loading = false;
       });
-      newImg.src = 'http://weddingguu.com' + this.file.path;
+      newImg.src = this.file.public_path;
     })
 
   }

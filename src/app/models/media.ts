@@ -15,4 +15,5 @@ export class Media {
     public_path : string;
     select :boolean = false;
     is_cut : boolean = false;
+    is_image : boolean = false;
 }

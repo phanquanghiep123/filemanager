@@ -9,7 +9,6 @@ declare var $: any;
 })
 export class ContentComponent implements OnInit {
   Column: number = 8;
-  file : Media;
   myDropzone : any;
   WidthIem = 100 / this.Column + "%";
   public_path : string = "";
@@ -21,7 +20,8 @@ export class ContentComponent implements OnInit {
     
   }
   OnchangeFile ($file : Media){
-    this.file = $file; 
+    this.app.file = $file; 
+    
   }
   addItemContent ($file) {
     this.app.CurrentFiles.join($file);

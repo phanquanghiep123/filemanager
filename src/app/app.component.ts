@@ -11,6 +11,7 @@ import { HeaderComponent } from './header/header.component';
 export class AppComponent {
   title = 'filemanager';
   is_loading : boolean = true;
+  file : Media;
   config: Config;
   interval : any;
   breadcrumbs : Trees[] = [];
@@ -21,7 +22,6 @@ export class AppComponent {
   ListChoose = [];
   actions = [
     { name: "back folder", "icon": "mdi-subdirectory-arrow-left",class : "on-allow back" },
-    { name: "next folder", "icon": "mdi-subdirectory-arrow-right" ,class : "on-allow next" },
     { name: "new folder", "icon": "mdi-folder-plus" ,class : "on-allow new-folder" },   
     { name: "new file", "icon": "mdi-file-plus" ,class : "on-allow new-file"},
     { name: "all folder", "icon": "mdi-clipboard-check-outline" ,class : "on-allow" },
@@ -53,27 +53,45 @@ export class AppComponent {
       for(var i in this.config.EXT){
         var stringClass = this.config.EXT[i].join(" > .a-node:before,.");
         var stringClassFile = this.config.EXT[i].join(" .icon-file:before,.");
+        var breadcrumbClass = "li.breadcrumb-item > " + this.config.EXT[i].join(":before,.");
+        
         stringClass = " ." +stringClass+ " > .a-node:before {";
         stringClassFile = " ." +stringClassFile+ " .icon-file:before {";
+        breadcrumbClass = " ." +breadcrumbClass+ ":before {";
         if(i == "image"){
           stringClass+='content: "\\F24F";';
           stringClassFile+='content: "\\F24F";';
-          
+          breadcrumbClass +='content: "\\F24F";';
         }else if(i == "audio"){
           stringClass+='content: "\\f223";';
           stringClassFile+='content: "\\f223";';
+          breadcrumbClass +='content: "\\f223";';
         }
         else if(i == "file"){
           stringClass+='content: "\\f214";';
           stringClassFile+='content: "\\f214";';
+          breadcrumbClass +='content: "\\f214";';
         }else if(i == "video"){
           stringClass+='content: "\\f22b";';
           stringClassFile+='content: "\\f22b";';
+          breadcrumbClass +='content: "\\f22b";';
+        }
+        else if(i == "text"){
+          stringClass+='content: "\\f22e";';
+          stringClassFile+='content: "\\f22e";';
+          breadcrumbClass +='content: "\\f22e";';
+        }
+        else if(i == "doc"){
+          stringClass+='content: "\\f22c";';
+          stringClassFile+='content: "\\f22c";';
+          breadcrumbClass +='content: "\\f22c";';
         }
         stringClass += "}";
         stringClassFile += "}";
+        breadcrumbClass += "}";
         string +=stringClass;
         string +=stringClassFile;
+        
       }
       var blob = new Blob([string], { type: 'text/css' });
       var gtm = document.createElement('link');
@@ -90,6 +108,7 @@ export class AppComponent {
     root.extension="root";
     this.breadcrumbs.push(root);
     this.CurrentFolder = root;
+    
   }
    
 }

@@ -12,6 +12,9 @@ declare var $: any;
   templateUrl: './sidaber.component.html'
 })
 export class SidaberComponent implements OnInit {
+  @Input() file: any;
+  @ViewChild('viewTree') viewTree: ElementRef;
+  @Input() breadcrumbs: Trees[];
   jsTree: any;
   medias: Media[];
   config: any;
@@ -21,9 +24,6 @@ export class SidaberComponent implements OnInit {
   trees: Trees[];
   breadcrumbsNew: Trees[] = [];
   TUL: any = this.Renderer.createElement("ul");
-  file: any;
-  @ViewChild('viewTree') viewTree: ElementRef;
-  @Input() breadcrumbs: Trees[];
   constructor(
     private TreesService: TreesService,
     private app: AppComponent,
@@ -125,7 +125,7 @@ export class SidaberComponent implements OnInit {
     }
     return ul;
   }
-  NodeClick($element: Trees, event) {
+  NodeClick($element: any, event) {
     if ($element.extension == "folder" || $element.extension == "root") {
       this.app.CurrentFiles = [];
       this.MainComponent.Content.is_loading = true;
@@ -169,15 +169,34 @@ export class SidaberComponent implements OnInit {
       this.breadcrumbsNew = [];
       this.app.CurrentFolder = $element;
 
+    } else {
+      this.app.file = $element;
+      if (this.app.config.EXT['image'].indexOf(this.app.file.extension) !== -1)
+        $("#myModalEditImage").modal();
+      else if (this.app.config.EXT['text'].indexOf(this.app.file.extension) !== -1) {
+        $.ajax(
+          {
+            url: this.app.file.public_path,
+            success: function (data) {
+              $("#myModalEditFileText").find("#content").val(data);
+              $("#myModalEditFileText").modal();
+            }
+          }
+        )
+      }
+      else
+        $("#myModalEditFile").modal();
     }
-    return false;
+
   }
 
   GetPathURL(node) {
     try {
       var data = node.getAttribute('data-node');
       data = JSON.parse(data);
-      this.breadcrumbsNew.push(data);
+      if(data.extension == "folder" || data.extension == "root"){
+        this.breadcrumbsNew.push(data);
+      }
       if (data.pid != '-1') {
         var a = document.getElementsByClassName("a-node-" + data.pid)[0];
         this.GetPathURL(a);
@@ -190,7 +209,7 @@ export class SidaberComponent implements OnInit {
     this.app.CurrentFolder = $element;
     var left = ($event.x);
     var top = ($event.y);
-    this.file = $element;
+    this.app.file = $element;
     $(".fix-menu-right").css({
       left: left + "px",
       top: top + "px"

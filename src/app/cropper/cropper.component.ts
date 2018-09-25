@@ -8,7 +8,7 @@ declare var Cropper: any;
   styleUrls: ['./cropper.component.css']
 })
 export class CropperComponent implements OnInit {
-  @Input() file: Media;
+  @Input() file: any;
   cropper;
   is_loading: boolean = false;
   constructor() {
@@ -17,9 +17,9 @@ export class CropperComponent implements OnInit {
 
   ngOnInit() {
     var is_round = 0;
-    var $modal = $('#myModalEditFile');
+    var $modal = $('#myModalEditImage');
     var actions = $('#actions');
-    var image = document.getElementById('cropper-image');
+    var image;
     var dataHeight = $('#dataHeight');
     var dataWidth = $('#dataWidth');
     var options = {
@@ -41,15 +41,13 @@ export class CropperComponent implements OnInit {
         var data = e.detail;
         dataHeight.val(Math.round(data.height));
         dataWidth.val(Math.round(data.width));
-
       },
       zoom: function (e) {
         console.log(e.type, e.detail.ratio);
       },
-
-
     };
     $modal.on('shown.bs.modal', () => {
+      image = document.getElementById('cropper-image');
       this.is_loading = true;
       var img = new Image();
       image.addEventListener('ready', () => {
@@ -120,6 +118,7 @@ export class CropperComponent implements OnInit {
         _seff.cropper[method](option);
     });
     window.addEventListener('resize', (event) => {
+      image = document.getElementById('cropper-image');
       if(this.cropper){
         this.cropper.destroy();
         this.cropper = null;
@@ -131,30 +130,30 @@ export class CropperComponent implements OnInit {
       image.addEventListener('ready', () => {
         this.is_loading = false;
       });
-      $("#myModalEditFile .cropper-container").removeClass("round");
-      $("#myModalEditFile .img-preview").removeClass("round");
+      $("#myModalEditImage .cropper-container").removeClass("round");
+      $("#myModalEditImage .img-preview").removeClass("round");
       this.cropper = new Cropper(image, options);
       this.cropper.round = function () {
-        $("#myModalEditFile .cropper-container").addClass("round");
-        $("#myModalEditFile .img-preview").addClass("round");
+        $("#myModalEditImage .cropper-container").addClass("round");
+        $("#myModalEditImage .img-preview").addClass("round");
         this.setAspectRatio(1);
         is_round = 1;
       }
       this.cropper.square = function () {
-        $("#myModalEditFile .cropper-container").removeClass("round");
-        $("#myModalEditFile .img-preview").removeClass("round");
+        $("#myModalEditImage .cropper-container").removeClass("round");
+        $("#myModalEditImage .img-preview").removeClass("round");
         this.setAspectRatio(1);
         is_round = 0;
       }
       this.cropper.auto = function () {
-        $("#myModalEditFile .cropper-container").removeClass("round");
-        $("#myModalEditFile .img-preview").removeClass("round");
+        $("#myModalEditImage .cropper-container").removeClass("round");
+        $("#myModalEditImage .img-preview").removeClass("round");
         this.setAspectRatio(false);
         is_round = 0;
       }
       this.cropper.setAspectRatio21 = function () {
-        $("#myModalEditFile .cropper-container").removeClass("round");
-        $("#myModalEditFile .img-preview").removeClass("round");
+        $("#myModalEditImage .cropper-container").removeClass("round");
+        $("#myModalEditImage .img-preview").removeClass("round");
         this.setAspectRatio(2 / 1);
         is_round = 0;
       }

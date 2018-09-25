@@ -9,6 +9,7 @@ import { Trees } from '../models/trees';
 })
 export class BreadcrumbComponent implements OnInit {
   @Input () breadcrumbs: Trees[];
+  @Input () file: any;
   constructor(
     private ElementRef: ElementRef,
     private Renderer: Renderer2

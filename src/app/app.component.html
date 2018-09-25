@@ -1,7 +1,7 @@
 <div class="container-full">
-    <app-header id="header-page" [breadcrumbs]="breadcrumbs"></app-header>
+    <app-header id="header-page" [file]="file" [breadcrumbs]="breadcrumbs"></app-header>
     <router-outlet id="main-page"></router-outlet>
-    <app-footer id="footer-page" [breadcrumbs]="breadcrumbs"></app-footer>
+    <app-footer id="footer-page" [file]="file" [breadcrumbs]="breadcrumbs"></app-footer>
     <app-loading [is_loading] ="is_loading" ></app-loading>
 </div>
 

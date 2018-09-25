@@ -8,13 +8,15 @@ import { AppComponent } from '../app.component';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  @ViewChild(ContentComponent) Content: ContentComponent;
+  @ViewChild (ContentComponent) Content: ContentComponent;
+  file : any;
   breadcrumbs : Trees[];
   constructor(
     private app : AppComponent
   ) {
   }
   ngOnInit() {
+    this.file = this.app.file;
     this.breadcrumbs = this.app.breadcrumbs;
   }
 

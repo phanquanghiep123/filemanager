@@ -367,43 +367,16 @@ img {
 .breadcrumb-component .breadcrumb li a.root::after {
   content: "\f2dc";
 }
+.breadcrumb-component .breadcrumb li a::after {
+  content: "\f214";
+}
 
 .modal .full-custom {
   width: 80%;
   max-width: 100%;
 }
 
-#myModalEditFile .close {
-  position: absolute;
-  right: 6px;
-  top: -2px;
-  font-size: 30px;
-  z-index: 99;
-}
 
-#myModalEditFile .modal-content {
-  height: calc(100vh - 56px);
-}
-
-#myModalEditFile .data-box {
-  position: absolute;
-  bottom: 0;
-  left: 15px;
-  right: 15px;
-}
-
-.img-container {
-  height: 100%;
-}
-
-#myModalEditFile img {
-  max-height: 100%;
-}
-
-#myModalEditFile .img-container>img {
-  max-width: 100%;
-  max-height: 100%;
-}
 
 .controll-data ul li {
   list-style: none;
@@ -874,7 +847,7 @@ img {
 .app-cropper{
   position: relative;
 }
-#myModalEditFile .modal-body{
+#myModalEditImage .modal-body{
   overflow: hidden;
 }
 
@@ -887,16 +860,11 @@ img {
   z-index: 99;
 }
 
-#myModalViewFile .modal-content {
+#myModalViewFile .modal-content,#myModalEditFileText .modal-content{
   height: calc(100vh - 56px);
 }
 
-#myModalViewFile .data-box {
-  position: absolute;
-  bottom: 0;
-  left: 15px;
-  right: 15px;
-}
+
 
 .img-container {
   height: 100%;
@@ -911,7 +879,7 @@ img {
   max-height: 100%;
 }
 
-#myModalViewFile .modal-body{
+#myModalViewFile .modal-body,#myModalEditFileText .modal-body{
   overflow: hidden;
 }
 #myModalViewFile .img-container{
@@ -931,4 +899,46 @@ img {
   object-fit: contain;
   text-align: center;
   object-position: center;
+}
+
+#myModalViewFile .modal-footer,
+#myModalEditImage .modal-footer{
+    padding: 0;
+    border-top: none;
+}
+
+
+#myModalEditImage .close {
+  position: absolute;
+  right: 6px;
+  top: -2px;
+  font-size: 30px;
+  z-index: 99;
+}
+
+#myModalEditImage .modal-content,#myModalEditFileText .modal-content{
+  height: calc(100vh - 56px);
+}
+
+#myModalEditImage .data-box ,#myModalEditFileText .data-box,#myModalViewFile .data-box{
+  position: absolute;
+  bottom: 0;
+  left: 15px;
+  right: 15px;
+}
+
+.img-container {
+  height: 100%;
+}
+
+#myModalEditImage img {
+  max-height: 100%;
+}
+
+#myModalEditImage .img-container>img {
+  max-width: 100%;
+  max-height: 100%;
+}
+#content{
+  height : -webkit-fill-available
 }

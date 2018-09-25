@@ -57,6 +57,18 @@ export class UploadsComponent implements OnInit {
       });
       this.myDropzone.on("sending", (file, xhr, formData) => {
         formData.append("folder", this.app.CurrentFolder.id);
+        var extensions = "";
+        $.each(this.app.config.EXT,(key,value) => {
+          if(key == 0)
+            extensions += value; 
+          else
+            extensions += "," + value; 
+        });
+        extensions = extensions.replace(",,",",");
+        formData.append("extensions", extensions);
+      });
+      this.myDropzone.on("success", (data) => {
+       console.log(data.xhr.response);
       });
     }, 1000);
     $("#myModalUpload").on('hidden.bs.modal',() => {

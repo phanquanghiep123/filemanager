@@ -31,10 +31,12 @@
      "url": "thumb"
    },
    "ext": {
-     "image": ["jpg", "png", "jpeg", "gif"],
-     "audio": ["mp3", "mp4"],
-     "video": ["ovg", "ovv"],
-     "file": ["doc", "pdf", "txt", "html", "css", "js"]
+     "image" : ["jpg", "png", "jpeg", "gif"],
+     "audio" : ["mp3"],
+     "video" : ["ovg","mp4", "ovv"],
+     "text"  : ["txt", "html", "css", "js"],
+     "doc"   : ["doc","pdf"],
+     "file"  : ["rar","zip"]
    },
    "icon": {
      "photo": {
