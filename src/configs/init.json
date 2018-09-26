@@ -1,11 +1,12 @@
  {
    "base": {
-     "public_path": "http://filemanager.com:8080",
-     "get_data": "http://filemanager.com:8080?action=init",
-     "get_trees": "http://filemanager.com:8080?action=trees",
-     "get_folder": "http://filemanager.com:8080?action=folder&id={id}",
-     "get_file": "http://filemanager.com:8080?action=file",
-     "uploads" : "http://filemanager.com:8080?action=uploads"
+     "public_path" : "http://filemanager.com:8080",
+     "get_data"    : "http://filemanager.com:8080?action=init",
+     "get_trees"   : "http://filemanager.com:8080?action=trees",
+     "get_folder"  : "http://filemanager.com:8080?action=folder&id={id}",
+     "get_file"    : "http://filemanager.com:8080?action=file",
+     "uploads"     : "http://filemanager.com:8080?action=uploads",
+     "add_folder"  : "http://filemanager.com:8080?action=add_folder"
    },
    "database": {
      "is_demo": true,
@@ -31,12 +32,12 @@
      "url": "thumb"
    },
    "ext": {
-     "image" : ["jpg", "png", "jpeg", "gif"],
-     "audio" : ["mp3"],
-     "video" : ["ovg","mp4", "ovv"],
-     "text"  : ["txt", "html", "css", "js"],
-     "doc"   : ["doc","pdf"],
-     "file"  : ["rar","zip"]
+     "image": ["jpg", "png", "jpeg", "gif"],
+     "audio": ["mp3"],
+     "video": ["ovg", "mp4", "ovv"],
+     "text": ["txt", "html", "css", "js"],
+     "doc": ["doc", "pdf"],
+     "file": ["rar", "zip"]
    },
    "icon": {
      "photo": {

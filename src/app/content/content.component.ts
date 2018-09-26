@@ -77,7 +77,8 @@ export class ContentComponent implements OnInit {
     },1000);
   }
   AddNewFolder () {
-    this.addFolder.emit( this.app.folder);
+    //this.addFolder.emit( this.app.folder);
+    this.app.folder.pid = this.app.CurrentFolder.id;
     this.folderService.add(this.app.config.BASE["add_folder"],this.app.folder).subscribe((data) => {
     });
   }
