@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { Config } from './models/config';
-import { Trees } from './models/trees';
 import { Media } from './models/media';
-import { Folder } from './models/folder';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,14 +9,14 @@ import { Folder } from './models/folder';
 export class AppComponent {
  
   title = 'filemanager';
-  folder : any;
+  folder : Media;
   is_loading : boolean = true;
-  file : any;
+  file : Media;
   config: Config;
   interval : any;
-  breadcrumbs : Trees[] = [];
-  Trees: Trees[] = [];
-  CurrentFolder : Trees;
+  breadcrumbs : Media[] = [];
+  Trees: Media[] = [];
+  CurrentFolder : Media;
   CurrentFiles : Media[] = [];
   MySeclect    : Media[] = [];
   ListChoose = [];
@@ -56,7 +54,6 @@ export class AppComponent {
         var stringClass = this.config.EXT[i].join(" > .a-node:before,.");
         var stringClassFile = this.config.EXT[i].join(" .icon-file:before,.");
         var breadcrumbClass = "li.breadcrumb-item > " + this.config.EXT[i].join(":before,.");
-        
         stringClass = " ." +stringClass+ " > .a-node:before {";
         stringClassFile = " ." +stringClassFile+ " .icon-file:before {";
         breadcrumbClass = " ." +breadcrumbClass+ ":before {";
@@ -93,7 +90,6 @@ export class AppComponent {
         breadcrumbClass += "}";
         string +=stringClass;
         string +=stringClassFile;
-        
       }
       var blob = new Blob([string], { type: 'text/css' });
       var gtm = document.createElement('link');
@@ -103,14 +99,12 @@ export class AppComponent {
       s.parentNode.insertBefore(gtm, s);
       clearInterval(this.interval);
     },10);
-    var root = new Trees();
+    var root = new Media();
     root.id = 0;
     root.name = "Root";
     root.pid = -1;
     root.extension="root";
     this.breadcrumbs.push(root);
     this.CurrentFolder = root;
-    
   }
-   
 }

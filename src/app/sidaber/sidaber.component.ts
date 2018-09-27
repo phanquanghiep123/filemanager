@@ -2,7 +2,6 @@ import { Component, OnInit, ElementRef, ViewChild, Renderer2, Input, Output, Eve
 import { TreesService } from '../services/trees.service';
 import { MediaService } from '../services/media.service';
 import { Service } from '../models/service';
-import { Trees } from '../models/trees';
 import { AppComponent } from '../app.component';
 import { Media } from '../models/media';
 declare var $: any;
@@ -14,15 +13,15 @@ export class SidaberComponent implements OnInit {
   @Input() file: any;
   @Output() loadingContent = new EventEmitter();
   @ViewChild('viewTree') viewTree: ElementRef;
-  @Input() breadcrumbs: Trees[];
+  @Input() breadcrumbs: Media[] ;
   jsTree: any;
   medias: Media[];
   config: any;
   Service: Service;
   interval: any;
   UL: string = "";
-  trees: Trees[];
-  breadcrumbsNew: Trees[] = [];
+  trees: Media[];
+  breadcrumbsNew: Media[] = [];
   TUL: any = this.Renderer.createElement("ul");
   constructor(
     private TreesService: TreesService,
@@ -44,7 +43,7 @@ export class SidaberComponent implements OnInit {
               this.app.CurrentFiles = this.medias;
             }
             this.TUL = this.Create_Tree2(this.app.Trees, 0);
-            var root = new Trees();
+            var root = new Media();
             root.id = 0;
             root.name = "Root";
             root.pid = -1;
@@ -87,7 +86,7 @@ export class SidaberComponent implements OnInit {
       }
     }, 10);
   }
-  public Create_Tree2($datas: Trees[], $pid = 0) {
+  public Create_Tree2($datas: Media[], $pid = 0) {
     var stringClass = $pid == 0 ? 'ul-root' : 'ul-node';
     var ul = this.Renderer.createElement("ul");
     this.Renderer.addClass(ul, stringClass);
@@ -131,7 +130,7 @@ export class SidaberComponent implements OnInit {
     }
     return ul;
   }
-  public createNode($nodeP: any, $nodeC: any) {
+  public createNode($nodeP: Media, $nodeC: Media) {
     
     var li = this.Renderer.createElement('li');
     this.Renderer.addClass(li, "li-node");
@@ -141,7 +140,7 @@ export class SidaberComponent implements OnInit {
     this.Renderer.addClass(a, 'a-node-' + $nodeC.id);
     this.Renderer.setAttribute(a, 'href', 'javascript:;');
     this.Renderer.setAttribute(a, 'data-node', JSON.stringify($nodeC));
-    this.Renderer.setAttribute(a, 'data-id', $nodeC.id);
+    this.Renderer.setAttribute(a, 'data-id', $nodeC.id.toString());
     var text = this.Renderer.createText($nodeC.name);
     this.Renderer.appendChild(a, text);
     this.Renderer.listen(a, "click", $event => {
@@ -190,7 +189,7 @@ export class SidaberComponent implements OnInit {
 
           }
           if(this.Service.response != null){
-            var newTrees: Trees[] = this.Service.response;
+            var newTrees: Media[] = this.Service.response;
             this.app.Trees = this.app.Trees.concat(newTrees);
             this.TUL = this.Create_Tree2(newTrees, $element.id);
             this.Renderer.appendChild(event.target.parentElement, this.TUL);

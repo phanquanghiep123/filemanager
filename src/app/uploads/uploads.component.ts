@@ -1,5 +1,4 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { File } from '../models/file';
 import { AppComponent } from '../app.component';
 declare var $: any;
 declare var Dropzone: any;

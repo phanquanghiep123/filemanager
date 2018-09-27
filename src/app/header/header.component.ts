@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Trees } from '../models/trees';
+import { Media } from '../models/media';
 import { AppComponent } from '../app.component';
-import { Folder } from '../models/folder';
 declare var $: any;
 @Component({
   selector: 'app-header',
@@ -9,8 +8,8 @@ declare var $: any;
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  @Input() breadcrumbs: Trees[];
-  @Input() file: any;
+  @Input() breadcrumbs: Media[];
+  @Input() file: Media;
   constructor(
     private app: AppComponent
   ) {
@@ -30,7 +29,7 @@ export class HeaderComponent implements OnInit {
     }
     if ($action.class == "off-allow" && this.app.MySeclect.length <= 0) return false;
     if ($action.name == "new folder") {
-      this.app.folder = new Folder();
+      this.app.folder = new Media();
       $("#myModalAddFolder").modal();
     } else if ($action.name == 'new file') {
       $("#myModalUpload").modal();

@@ -1,12 +1,12 @@
 import { Component, OnInit ,Input} from '@angular/core';
-import { Trees } from '../models/trees';
+import { Media } from '../models/media';
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html'
 })
 export class FooterComponent implements OnInit {
-  @Input () breadcrumbs:Trees[]; 
-  @Input () file : any;
+  @Input () breadcrumbs:Media[]; 
+  @Input () file : Media;
   constructor() { }
 
   ngOnInit() {

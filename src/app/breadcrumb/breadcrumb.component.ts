@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, Renderer2 ,Input} from '@angular/core';
 
-import { Trees } from '../models/trees';
+import { Media } from '../models/media';
 
 @Component({
   selector: 'app-breadcrumb',
@@ -8,8 +8,8 @@ import { Trees } from '../models/trees';
   styleUrls: ['./breadcrumb.component.css']
 })
 export class BreadcrumbComponent implements OnInit {
-  @Input () breadcrumbs: Trees[];
-  @Input () file: any;
+  @Input () breadcrumbs: Media[];
+  @Input () file: Media;
   constructor(
     private ElementRef: ElementRef,
     private Renderer: Renderer2
@@ -18,7 +18,7 @@ export class BreadcrumbComponent implements OnInit {
   ngOnInit() {
    
   }
-  ClickItem($item: Trees) {
+  ClickItem($item: Media) {
     let a = <HTMLElement>document.querySelector(".a-node.a-node-"+$item.id);
     a.click();
     return false;

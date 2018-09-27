@@ -8,7 +8,7 @@ declare var Cropper: any;
   styleUrls: ['./cropper.component.css']
 })
 export class CropperComponent implements OnInit {
-  @Input() file: any;
+  @Input() file: Media;
   cropper;
   is_loading: boolean = false;
   constructor() {

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ContentComponent } from '../content/content.component';
 import { SidaberComponent } from '../sidaber/sidaber.component';
-import { Trees } from '../models/trees';
+import { Media } from '../models/media';
 import { AppComponent } from '../app.component';
 @Component({
   selector: 'app-main',
@@ -11,8 +11,8 @@ import { AppComponent } from '../app.component';
 export class MainComponent implements OnInit {
   @ViewChild (ContentComponent) Content: ContentComponent;
   @ViewChild (SidaberComponent) Sidaber: SidaberComponent;
-  file : any;
-  breadcrumbs : Trees[];
+  file : Media;
+  breadcrumbs : Media[];
   constructor(
     private app : AppComponent
   ) {

@@ -10,7 +10,6 @@ import { MainComponent } from './main/main.component';
 import { SidaberComponent } from './sidaber/sidaber.component';
 import { ContentComponent } from './content/content.component';
 import { UploadsComponent } from './uploads/uploads.component';
-import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { ItemComponent } from './files/item/item.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import {Input } from '@angular/core';
@@ -28,7 +27,6 @@ import { FormsModule } from '@angular/forms';
     SidaberComponent,
     ContentComponent,
     UploadsComponent,
-    SafeHtmlPipe,
     ItemComponent,
     BreadcrumbComponent,
     CropperComponent,

@@ -1,5 +1,6 @@
 export class Media {
     id: number = 0
+    pid: number = 0
     name: string = ""
     icon: string = ""
     path: string = ""

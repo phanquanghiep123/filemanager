@@ -7,7 +7,7 @@ declare var $: any;
   styleUrls: ['./view.component.css']
 })
 export class ViewComponent implements OnInit {
-  @Input() file: any;
+  @Input() file: Media;
   is_loading: boolean = false;
   constructor() { }
   ngOnInit() {

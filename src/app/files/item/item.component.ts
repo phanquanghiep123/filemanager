@@ -2,25 +2,20 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Media } from '../../models/media';
 import { Service } from '../../models/service';
 import { AppComponent } from '../../app.component';
-import { MediaService } from '../../services/media.service';
-import { MainComponent } from '../../main/main.component';
-import { REFERENCE_PREFIX } from '@angular/compiler/src/render3/view/util';
 declare var $: any;
 @Component({
     selector: 'app-file',
     templateUrl: './item.component.html',
 })
 export class ItemComponent implements OnInit {
-    @Input() file: any;
+    @Input() file: Media;
     @Output() changFile: EventEmitter<any> = new EventEmitter();
     ImageExe: any = null;
-    medias: [Media];
+    medias: Media[] = [];
     Service: Service;
     breadcrumbsNew = [];
     constructor(
         private app: AppComponent,
-        private MediaService: MediaService,
-        private MainComponent: MainComponent
     ) {
 
     }

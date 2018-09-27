@@ -1,8 +1,7 @@
-import { Component, OnInit, Injectable,ViewChild,Input,Output,EventEmitter} from '@angular/core';
+import { Component, OnInit,ViewChild,Output,EventEmitter} from '@angular/core';
 import { CropperComponent } from '../cropper/cropper.component';
 import { AppComponent } from '../app.component';
 import { Media } from '../models/media';
-import { Folder } from '../models/folder';
 import { FolderService } from '../services/folder.service';
 declare var $: any;
 @Component({
@@ -15,7 +14,7 @@ export class ContentComponent implements OnInit {
   WidthIem = 100 / this.Column + "%";
   public_path : string = "";
   is_loading : boolean = false;
-  folder : Folder;
+  folder : Media;
   @ViewChild(CropperComponent) Cropper : CropperComponent;
   @Output () addFolder = new EventEmitter();
   @Output () removeNode = new EventEmitter();
@@ -101,7 +100,7 @@ export class ContentComponent implements OnInit {
       }
     })
   }
-  removeFile($file : any){
+  removeFile($file : Media){
     $(".main-item.main-item-"+$file.id).remove();
   }
 }

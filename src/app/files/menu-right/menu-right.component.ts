@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Media } from '../../models/media';
-import { Trees } from '../../models/Trees';
 import { AppComponent  } from '../../app.component';
 declare var $: any;
 @Component({
@@ -9,7 +8,7 @@ declare var $: any;
   styleUrls: ['./menu-right.component.css']
 })
 export class MenuRightComponent implements OnInit {
-  @Input() file: any;
+  @Input() file: Media;
   constructor(
    private app : AppComponent
   ) { }
