@@ -18,6 +18,7 @@ export class ContentComponent implements OnInit {
   folder : Folder;
   @ViewChild(CropperComponent) Cropper : CropperComponent;
   @Output () addFolder = new EventEmitter();
+  @Output () removeNode = new EventEmitter();
   constructor(
     private app : AppComponent,
     private folderService : FolderService
@@ -77,9 +78,30 @@ export class ContentComponent implements OnInit {
     },1000);
   }
   AddNewFolder () {
-    //this.addFolder.emit( this.app.folder);
     this.app.folder.pid = this.app.CurrentFolder.id;
     this.folderService.add(this.app.config.BASE["add_folder"],this.app.folder).subscribe((data) => {
+      if(data.status){
+        this.addFolder.emit( data.response );
+        this.app.CurrentFiles.push(data.response);
+        $("#myModalAddFolder").modal("hide");
+      }else{
+        alert(data.message);
+      }
     });
+  }
+  RemoveFile(){
+    this.folderService.remove(this.app.config.BASE["delete_file"],this.app.file.id).subscribe(data => {
+      if(data.status){
+        this.removeNode.emit(this.app.file);
+        if(this.app.file.id == this.app.folder.id){
+          let a = <HTMLElement>document.querySelector(".a-node.a-node-"+this.app.file.pid);
+          a.click();
+        }
+        $("#myModalRemoveFile").modal("hide");
+      }
+    })
+  }
+  removeFile($file : any){
+    $(".main-item.main-item-"+$file.id).remove();
   }
 }

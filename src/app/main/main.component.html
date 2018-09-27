@@ -4,7 +4,7 @@
       <app-sidaber (loadingContent)="loadingContent($event)" (onOpen)="onOpenChange($event)" [breadcrumbs] ="breadcrumbs"></app-sidaber>
     </div>
     <div class="content-box left relative">
-      <app-content (addFolder) ="addFolder($event)"></app-content>
+      <app-content (removeNode)="removeNode($event)" (addFolder) ="addFolder($event)"></app-content>
     </div>
     
   </div>

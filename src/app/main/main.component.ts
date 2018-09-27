@@ -27,4 +27,8 @@ export class MainComponent implements OnInit {
   addFolder ($folder : any) {
     this.Sidaber.createNode(this.app.CurrentFolder,$folder);
   }
+  removeNode($file){
+    this.Sidaber.removeFile($file);
+    this.Content.removeFile($file);
+  }
 }

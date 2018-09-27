@@ -11,9 +11,9 @@ import { Folder } from './models/folder';
 export class AppComponent {
  
   title = 'filemanager';
-  folder : Folder;
+  folder : any;
   is_loading : boolean = true;
-  file : Media;
+  file : any;
   config: Config;
   interval : any;
   breadcrumbs : Trees[] = [];

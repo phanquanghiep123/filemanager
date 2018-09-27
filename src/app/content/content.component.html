@@ -1,5 +1,5 @@
 <ul class="grid" id="main-items-container">
-  <li *ngFor="let item of app.CurrentFiles" class="main-item" [style.width]="WidthIem">
+  <li *ngFor="let item of app.CurrentFiles" class="main-item main-item-{{item.id}}" [style.width]="WidthIem">
     <app-file [file]="item" (changFile)="OnchangeFile($event)"></app-file>
   </li>
 </ul>

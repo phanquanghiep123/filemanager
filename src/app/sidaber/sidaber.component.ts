@@ -40,7 +40,9 @@ export class SidaberComponent implements OnInit {
           if (this.Service.status) {
             this.app.Trees = this.Service.response;
             this.medias = this.Service.response;
-            this.app.CurrentFiles = this.medias;
+            if(this.medias != null){
+              this.app.CurrentFiles = this.medias;
+            }
             this.TUL = this.Create_Tree2(this.app.Trees, 0);
             var root = new Trees();
             root.id = 0;
@@ -177,19 +179,25 @@ export class SidaberComponent implements OnInit {
       this.MediaService.getFolder(url_get_folder).subscribe(data => {
         this.Service = data;
         this.medias = this.Service.response;
-        this.app.CurrentFiles = this.medias;
+        this.app.CurrentFiles = [];
+        if(this.medias != null){
+          this.app.CurrentFiles = this.medias;
+        }
         if (indexOfClass1 == -1) {
           try {
             event.target.parentElement.querySelector("ul.ul-node").remove();
           } catch (e) {
 
           }
-          var newTrees: Trees[] = this.Service.response;
-          this.app.Trees = this.app.Trees.concat(newTrees);
-          this.TUL = this.Create_Tree2(newTrees, $element.id);
-          this.Renderer.appendChild(event.target.parentElement, this.TUL);
-          event.target.parentElement.classList.add("on-loading");
-          event.target.parentElement.classList.add("open");
+          if(this.Service.response != null){
+            var newTrees: Trees[] = this.Service.response;
+            this.app.Trees = this.app.Trees.concat(newTrees);
+            this.TUL = this.Create_Tree2(newTrees, $element.id);
+            this.Renderer.appendChild(event.target.parentElement, this.TUL);
+            event.target.parentElement.classList.add("on-loading");
+            event.target.parentElement.classList.add("open");
+          }
+        
         } else {
           if (indexOfClass2 == -1) {
             event.target.parentElement.classList.add("open");
@@ -246,6 +254,7 @@ export class SidaberComponent implements OnInit {
   }
   MenuContext($element: any, $event) {
     this.app.CurrentFolder = $element;
+    this.app.file = $element;
     var left = ($event.x);
     var top = ($event.y);
     this.app.file = $element;
@@ -260,6 +269,8 @@ export class SidaberComponent implements OnInit {
       this.app.breadcrumbs.push(this.breadcrumbsNew[i]);
     }
     this.breadcrumbsNew = [];
-    this.app.CurrentFolder = $element;
+  }
+  removeFile($file : any){
+    $(".li-node.li-node-"+$file.id).remove();
   }
 }

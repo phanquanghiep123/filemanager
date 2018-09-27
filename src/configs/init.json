@@ -6,7 +6,8 @@
      "get_folder"  : "http://filemanager.com:8080?action=folder&id={id}",
      "get_file"    : "http://filemanager.com:8080?action=file",
      "uploads"     : "http://filemanager.com:8080?action=uploads",
-     "add_folder"  : "http://filemanager.com:8080?action=add_folder"
+     "add_folder"  : "http://filemanager.com:8080?action=add_folder",
+     "delete_file" : "http://filemanager.com:8080?action=delete_file"
    },
    "database": {
      "is_demo": true,

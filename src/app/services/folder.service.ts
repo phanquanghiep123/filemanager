@@ -16,11 +16,16 @@ export class FolderService {
       })
     };
   }
-  add(url,folder) {
+  add(url,folder) : Observable<Service>  {
     const f = new FormData ();
     for (var item in folder){
       f.append(item,folder[item]);
     }
+    return this.http.post<Service>(url,f);
+  }
+  remove (url,id ) : Observable<Service>{
+    const f = new FormData ();
+    f.append("id",id);
     return this.http.post<Service>(url,f);
   }
 }
