@@ -103,7 +103,22 @@ export class ContentComponent implements OnInit {
         this.removeNode.emit(this.app.file);
         $("#myModalRemoveFile").modal("hide");
       }
-    })
+    });
+  }
+  RemoveFiles(){ 
+    this.app.MySeclect.forEach(value => {
+      this.app.CurrentFiles.forEach((value1, key) => {
+        if (value1.id == value.id) {
+          this.folderService.remove(this.app.config.BASE["delete_file"],value.id).subscribe(data => {
+            if(data.status){
+              this.removeNode.emit(value);
+            }
+          });
+          return false;
+        }
+      });
+    });
+    $("#myModalRemoveFiles").modal("hide");
   }
   removeFile($file : Media){
     $(".main-item.main-item-"+$file.id).remove();

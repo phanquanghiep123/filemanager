@@ -352,7 +352,7 @@
     <div class="modal-content">
       <div class="modal-body">
         <app-breadcrumb [breadcrumbs]="app.breadcrumbs"></app-breadcrumb>
-        <app-uploads (addItemContent)="addItemContent($event)"></app-uploads>
+        <app-uploads (addFolder)="addFolder($event)" (addItemContent)="addItemContent($event)"></app-uploads>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -372,7 +372,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" (click)="Actions_FNC(app.action)" class="btn btn-primary" id="add-folder-now">Ok</button>
+        <button type="button" (click)="RemoveFiles(app.action)" class="btn btn-primary" id="add-folder-now">Ok</button>
       </div>
     </div>
   </div>

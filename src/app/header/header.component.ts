@@ -73,22 +73,7 @@ export class HeaderComponent implements OnInit {
       }
     }
     else if ($action.name == "delete file") {
-      if ($action.name == this.app.action['name']) {
-        this.app.MySeclect.forEach(value => {
-          this.app.CurrentFiles.forEach((value1, key) => {
-            if (value1.id == value.id) {
-              this.app.CurrentFiles.splice(key, 1);
-              return false;
-            }
-          });
-        });
-        this.app.MySeclect = [];
-        $("#myModalRemoveFiles").modal("hide");
-      }
-      else {
         $("#myModalRemoveFiles").modal();
-      }
-
     }
     this.app.action = $action;
   }

@@ -10,7 +10,7 @@
     </div>
     <div (click)="ViewFile()" class="is_file {{file.extension}}">
       <i *ngIf="!file.is_image" class="icon-file"></i>
-      <img *ngIf="file.is_image" [src]="file.public_path" class="img-file" />
+      <img *ngIf="file.is_image" [src]="file.thumb" class="img-file" />
     </div>
     <div class="title_file {{file.extension}}">
       <h4> {{file.name}}</h4>

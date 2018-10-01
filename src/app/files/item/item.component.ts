@@ -24,7 +24,9 @@ export class ItemComponent implements OnInit {
         this.file.is_cut = false;
         this.ImageExe = (this.app.config.EXT['image']);
         this.ImageExe.indexOf(this.file.extension) > -1 ? this.file.is_image = true : this.file.is_image = false;
-        this.file.public_path = this.app.config.BASE['public_path'] + this.file.thumb;
+        this.file.thumb = this.app.config.BASE['public_path'] + this.file.thumb;
+        this.file.public_path = this.app.config.BASE['public_path'] + this.file.path;
+
     }
     ViewFile() {
         if (this.file.extension == "folder") {

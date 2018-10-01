@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AppComponent } from '../app.component';
+import { Service } from '../models/Service';
 declare var $: any;
 declare var Dropzone: any;
 @Component({
@@ -47,13 +48,6 @@ export class UploadsComponent implements OnInit {
     setTimeout(() => {
       var UploadUrl = this.app.config['BASE']['uploads'];
       this.myDropzone = new Dropzone("div#dropzone", { url: UploadUrl });
-      this.myDropzone.on("addedfile", (file) => {
-        console.log(this.app.CurrentFolder);
-        return false;
-      });
-      this.myDropzone.on("removedfile", (file) => {
-        /* Maybe display some more file information on your page */
-      });
       this.myDropzone.on("sending", (file, xhr, formData) => {
         formData.append("folder", this.app.CurrentFolder.id);
         var extensions = "";
@@ -67,7 +61,8 @@ export class UploadsComponent implements OnInit {
         formData.append("extensions", extensions);
       });
       this.myDropzone.on("success", (data) => {
-       console.log(data.xhr.response);
+        var service : Service = $.parseJSON(data.xhr.response);
+        this.app.CurrentFiles.push(service.response);
       });
     }, 1000);
     $("#myModalUpload").on('hidden.bs.modal',() => {
