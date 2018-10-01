@@ -46,6 +46,7 @@ export class MenuRightComponent implements OnInit {
     return false;
   }
   MenuAddFolder(){
+    this.app.folder = new Media();
     $("#myModalAddFolder").modal();
     $(".fix-menu-right").removeClass("open");
     return false;

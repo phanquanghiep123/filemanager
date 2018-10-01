@@ -15,6 +15,8 @@ export class ContentComponent implements OnInit {
   public_path : string = "";
   is_loading : boolean = false;
   folder : Media;
+  oldFile : Media;
+  onsave : boolean = false;
   @ViewChild(CropperComponent) Cropper : CropperComponent;
   @Output () addFolder = new EventEmitter();
   @Output () removeNode = new EventEmitter();
@@ -75,6 +77,13 @@ export class ContentComponent implements OnInit {
     setTimeout(() => {
       this.public_path = this.app.config.BASE['public_path'];
     },1000);
+    
+    $(".content-box .modal").on('hidden.bs.modal', () => {
+
+      if(!this.onsave){
+        console.log($(".content-box .modal").find("from"));
+      }
+    });
   }
   AddNewFolder () {
     this.app.folder.pid = this.app.CurrentFolder.id;
@@ -92,15 +101,17 @@ export class ContentComponent implements OnInit {
     this.folderService.remove(this.app.config.BASE["delete_file"],this.app.file.id).subscribe(data => {
       if(data.status){
         this.removeNode.emit(this.app.file);
-        if(this.app.file.id == this.app.folder.id){
-          let a = <HTMLElement>document.querySelector(".a-node.a-node-"+this.app.file.pid);
-          a.click();
-        }
         $("#myModalRemoveFile").modal("hide");
       }
     })
   }
   removeFile($file : Media){
     $(".main-item.main-item-"+$file.id).remove();
+  }
+
+  EditFile () {
+    console.log(this.app.file);
+    this.onsave = true;
+    return false;
   }
 }

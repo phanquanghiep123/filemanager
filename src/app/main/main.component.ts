@@ -24,7 +24,7 @@ export class MainComponent implements OnInit {
   loadingContent ($on = true){
     this.Content.is_loading = $on;
   }
-  addFolder ($folder : any) {
+  addFolder ($folder : Media) {
     this.Sidaber.createNode(this.app.CurrentFolder,$folder);
   }
   removeNode($file){

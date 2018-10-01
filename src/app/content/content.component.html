@@ -168,7 +168,7 @@
   <div class="modal-dialog">
     <!-- Modal content-->
     <div class="modal-content">
-      <form id="save-edit" (submit)="SaveFile()" method="post" class="height-100" enctype="multipart/form-data">
+      <form id="save-edit" class="height-100">
         <input type="hidden" id="base64image" name="base64image">
         <!-- Modal content-->
         <div class="modal-body height-100">
@@ -181,7 +181,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">Name</span>
                     </div>
-                    <input *ngIf="app.file" type="text" class="form-control" id="media-name" value="{{app.file.name}}" placeholder="Enter media name">
+                    <input *ngIf="app.file" type="text" class="form-control" [(ngModel)] ="app.file.name" name="name" id="media-name" value="{{app.file.name}}" placeholder="Enter media name">
                   </div>
                   <div lass="input-group mb-3" *ngIf="app.config && app.file">
                     <audio *ngIf="app.config.EXT['audio'].indexOf(app.file.extension) != -1" [src]="app.file.public_path" controls style="width:100%"></audio>
@@ -189,7 +189,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" (click)="EditFile()" class="btn btn-primary">Save</button>
                   </div>
                 </div>
               </div>

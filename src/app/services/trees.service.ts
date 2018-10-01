@@ -10,7 +10,9 @@ import { } from 'rxjs';
 export class TreesService {
   constructor(private http: HttpClient) {
   }
-  gets($url): Observable<Service> {
-    return this.http.get<Service>($url);
+  gets($url,$id): Observable<Service> {
+    const f = new FormData();
+    f.append("id", $id);
+    return this.http.post<Service>($url,f);
   }
 }

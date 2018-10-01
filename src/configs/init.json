@@ -1,13 +1,13 @@
  {
    "base": {
-     "public_path" : "http://filemanager.com",
-     "get_data"    : "http://filemanager.com?action=init",
-     "get_trees"   : "http://filemanager.com?action=trees",
-     "get_folder"  : "http://filemanager.com?action=folder&id={id}",
-     "get_file"    : "http://filemanager.com?action=file",
-     "uploads"     : "http://filemanager.com?action=uploads",
-     "add_folder"  : "http://filemanager.com?action=add_folder",
-     "delete_file" : "http://filemanager.com?action=delete_file"
+     "public_path" : "http://filemanager.com:8080",
+     "get_data"    : "http://filemanager.com:8080?action=init",
+     "get_trees"   : "http://filemanager.com:8080?action=trees",
+     "get_folder"  : "http://filemanager.com:8080?action=folder",
+     "get_file"    : "http://filemanager.com:8080?action=file",
+     "uploads"     : "http://filemanager.com:8080?action=uploads",
+     "add_folder"  : "http://filemanager.com:8080?action=add_folder",
+     "delete_file" : "http://filemanager.com:8080?action=delete_file"
    },
    "database": {
      "is_demo": true,

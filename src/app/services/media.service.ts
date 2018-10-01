@@ -8,7 +8,9 @@ import { Observable, of } from 'rxjs';
 export class MediaService {
   constructor(private http: HttpClient) {
   }
-  public getFolder($url:string): Observable<Service>{
-    return this.http.get<Service>($url);
+  public getFolder($url:string,$id): Observable<Service>{
+    const f = new FormData();
+    f.append("id", $id);
+    return this.http.post<Service>($url,f);
   }
 }

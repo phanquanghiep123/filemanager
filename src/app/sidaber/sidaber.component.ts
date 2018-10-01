@@ -13,7 +13,7 @@ export class SidaberComponent implements OnInit {
   @Input() file: any;
   @Output() loadingContent = new EventEmitter();
   @ViewChild('viewTree') viewTree: ElementRef;
-  @Input() breadcrumbs: Media[] ;
+  @Input() breadcrumbs: Media[];
   jsTree: any;
   medias: Media[];
   config: any;
@@ -34,12 +34,12 @@ export class SidaberComponent implements OnInit {
   ngOnInit() {
     this.interval = setInterval(() => {
       if (this.app.config != undefined) {
-        this.TreesService.gets(this.app.config.BASE['get_trees']).subscribe(data => {
+        this.TreesService.gets(this.app.config.BASE['get_trees'], 0).subscribe(data => {
           this.Service = data;
           if (this.Service.status) {
             this.app.Trees = this.Service.response;
             this.medias = this.Service.response;
-            if(this.medias != null){
+            if (this.medias != null) {
               this.app.CurrentFiles = this.medias;
             }
             this.TUL = this.Create_Tree2(this.app.Trees, 0);
@@ -90,7 +90,7 @@ export class SidaberComponent implements OnInit {
     var stringClass = $pid == 0 ? 'ul-root' : 'ul-node';
     var ul = this.Renderer.createElement("ul");
     this.Renderer.addClass(ul, stringClass);
-    this.Renderer.addClass(ul,"ul-node-" + $pid);
+    this.Renderer.addClass(ul, "ul-node-" + $pid);
     if ($datas != null && $datas.length > 0) {
       $datas.forEach((element, key) => {
         if (element.pid == $pid) {
@@ -124,6 +124,12 @@ export class SidaberComponent implements OnInit {
           this.Renderer.addClass(li, element.extension);
           this.Renderer.appendChild(li, a);
           this.Renderer.appendChild(li, this.Create_Tree2($datas, element.id));
+          if ($(li).find("ul").length == 0) {
+            var ul2 = this.Renderer.createElement("ul");
+            this.Renderer.addClass(ul2, "ul-node");
+            this.Renderer.addClass(ul2, "ul-node-" + element.id);
+            this.Renderer.appendChild(li, ul2);
+          }
           this.Renderer.appendChild(ul, li);
         }
       });
@@ -131,7 +137,6 @@ export class SidaberComponent implements OnInit {
     return ul;
   }
   public createNode($nodeP: Media, $nodeC: Media) {
-    
     var li = this.Renderer.createElement('li');
     this.Renderer.addClass(li, "li-node");
     this.Renderer.addClass(li, "li-node-" + $nodeC.id);
@@ -147,7 +152,7 @@ export class SidaberComponent implements OnInit {
       $event.stopPropagation();
       $event.preventDefault();
       this.NodeClick($nodeC, $event);
-      return false
+      return false;
     });
     this.Renderer.listen(a, "contextmenu", $event => {
       $event.stopPropagation();
@@ -159,11 +164,12 @@ export class SidaberComponent implements OnInit {
     this.Renderer.addClass(li, $nodeC.extension);
     this.Renderer.appendChild(li, a);
     var ul = this.Renderer.createElement("ul");
-    this.Renderer.addClass(ul,"ul-node");
-    this.Renderer.addClass(ul,"ul-node-" + $nodeC.id);
+    this.Renderer.addClass(ul, "ul-node");
+    this.Renderer.addClass(ul, "ul-node-" + $nodeC.id);
     this.Renderer.appendChild(li, ul);
-    var RootP = document.getElementsByClassName("ul-node-"+$nodeP.id);
+    var RootP = document.getElementsByClassName("ul-node-" + $nodeP.id);
     this.Renderer.appendChild(RootP[0], li);
+    this.OpenNode($nodeP);
   }
   NodeClick($element: any, event) {
     if ($element.extension == "folder" || $element.extension == "root") {
@@ -171,15 +177,14 @@ export class SidaberComponent implements OnInit {
       this.loadingContent.emit(true);
       this.app.checkall = false;
       var url_get_folder = this.app.config.BASE['get_folder'];
-      url_get_folder = url_get_folder.replace("{id}", $element.id);
       var className = (event.target.parentElement.className);
       var indexOfClass1 = className.split(" ").indexOf('on-loading');
       var indexOfClass2 = className.split(" ").indexOf('open');
-      this.MediaService.getFolder(url_get_folder).subscribe(data => {
+      this.MediaService.getFolder(url_get_folder, $element.id).subscribe(data => {
         this.Service = data;
         this.medias = this.Service.response;
         this.app.CurrentFiles = [];
-        if(this.medias != null){
+        if (this.medias != null) {
           this.app.CurrentFiles = this.medias;
         }
         if (indexOfClass1 == -1) {
@@ -188,15 +193,16 @@ export class SidaberComponent implements OnInit {
           } catch (e) {
 
           }
-          if(this.Service.response != null){
-            var newTrees: Media[] = this.Service.response;
-            this.app.Trees = this.app.Trees.concat(newTrees);
-            this.TUL = this.Create_Tree2(newTrees, $element.id);
-            this.Renderer.appendChild(event.target.parentElement, this.TUL);
-            event.target.parentElement.classList.add("on-loading");
-            event.target.parentElement.classList.add("open");
+          var newTrees: Media[] = this.Service.response;
+          this.TUL = this.Create_Tree2(newTrees, $element.id);
+          this.Renderer.appendChild(event.target.parentElement, this.TUL);
+          if (this.Service.response != null) {
+            newTrees.forEach((element) => {
+              this.app.Trees.push(element);
+            })  
           }
-        
+          event.target.parentElement.classList.add("on-loading");
+          event.target.parentElement.classList.add("open");
         } else {
           if (indexOfClass2 == -1) {
             event.target.parentElement.classList.add("open");
@@ -235,7 +241,6 @@ export class SidaberComponent implements OnInit {
     }
 
   }
-
   GetPathURL(node) {
     try {
       var data = node.getAttribute('data-node');
@@ -269,7 +274,15 @@ export class SidaberComponent implements OnInit {
     }
     this.breadcrumbsNew = [];
   }
-  removeFile($file : any){
-    $(".li-node.li-node-"+$file.id).remove();
+  removeFile($file: any) {
+    $(".li-node.li-node-" + $file.id).remove();
+  }
+  OpenNode ($node : Media){
+    if($(".li-node.li-node-" + $node.id).hasClass("on-loading")){
+      $(".li-node.li-node-" + $node.id).addClass("open");
+    }else{
+      let a = <HTMLElement>document.querySelector(".a-node.a-node-"+$node.id);
+      a.click();
+    }
   }
 }
