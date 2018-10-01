@@ -13,4 +13,10 @@ export class MediaService {
     f.append("id", $id);
     return this.http.post<Service>($url,f);
   }
+  copy ($url,$ids,$id) : Observable<Service>{
+    const f = new FormData();
+    f.append("ids", $ids);
+    f.append("id", $id);
+    return this.http.post<Service>($url,f);
+  }
 }

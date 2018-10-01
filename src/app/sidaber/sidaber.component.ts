@@ -198,7 +198,8 @@ export class SidaberComponent implements OnInit {
           this.Renderer.appendChild(event.target.parentElement, this.TUL);
           if (this.Service.response != null) {
             newTrees.forEach((element) => {
-              this.app.Trees.push(element);
+              console.log(element)
+              //this.app.Trees.push(element);
             })  
           }
           event.target.parentElement.classList.add("on-loading");

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Media } from '../models/media';
+import { MediaService } from '../services/media.service';
 import { AppComponent } from '../app.component';
 declare var $: any;
 @Component({
@@ -11,7 +12,8 @@ export class HeaderComponent implements OnInit {
   @Input() breadcrumbs: Media[];
   @Input() file: Media;
   constructor(
-    private app: AppComponent
+    private app: AppComponent,
+    private mediaService : MediaService
   ) {
 
   }
@@ -65,8 +67,12 @@ export class HeaderComponent implements OnInit {
       });
     }
     else if ($action.name == "paste file") {
+      var ids = [];
       this.app.MySeclect.forEach(value => {
-        this.app.CurrentFiles.push(value);
+        ids.push(value.id);
+      });
+      this.mediaService.copy(this.app.config.BASE["paste_file"],ids,this.app.CurrentFolder.id).subscribe(data => {
+        this.app.CurrentFiles.push(data.response);
       });
       if (this.app.action['name'] == "cut file") {
         this.app.MySeclect = [];
