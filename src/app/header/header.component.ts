@@ -72,7 +72,12 @@ export class HeaderComponent implements OnInit {
         ids.push(value.id);
       });
       this.mediaService.copy(this.app.config.BASE["paste_file"],ids,this.app.CurrentFolder.id).subscribe(data => {
-        this.app.CurrentFiles.push(data.response);
+        if(data.response){
+          $.each(data.response,function($key,$value){
+            this.app.CurrentFiles.push($value);
+          })
+        }
+        
       });
       if (this.app.action['name'] == "cut file") {
         this.app.MySeclect = [];
