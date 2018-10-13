@@ -62,7 +62,8 @@ export class UploadsComponent implements OnInit {
       });
       this.myDropzone.on("success", (data) => {
         var service : Service = $.parseJSON(data.xhr.response);
-        this.app.CurrentFiles.push(service.response);
+        if(service.status)
+          this.app.CurrentFiles.push(service.response);
       });
     }, 1000);
     $("#myModalUpload").on('hidden.bs.modal',() => {
